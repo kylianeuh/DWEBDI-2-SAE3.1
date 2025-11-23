@@ -47,13 +47,8 @@ function openModal() {
 
    clickableGraphs.forEach(graph => {
       graph.addEventListener('click', (e) => {
-         // 1. Récupérer l'ID de l'élément cliqué (ex: "tauxSelectivite")
          const clickedId = e.currentTarget.id;
-         
-         // 2. Définir l'ID cible dans la modale (ex: "tauxSelectivite-modal")
          const targetModalId = clickedId + '-modal';
-
-         // 3. Parcourir les graphs de la modale pour afficher SEULEMENT le bon
          modalGraphs.forEach(modalGraph => {
             if (modalGraph.id === targetModalId) {
                modalGraph.style.display = 'block';
@@ -61,20 +56,12 @@ function openModal() {
                modalGraph.style.display = 'none';
             }
          });
-
-         // 4. Afficher la modale
          modalContainer.style.display = 'grid';
-
-         // 5. IMPORTANT : Forcer ECharts à se redimensionner.
-         // Comme le div était en display:none, le graph a peut-être une taille de 0x0.
-         // Le délai de 10ms laisse le temps au CSS de s'appliquer (display: grid/block) avant le resize.
          setTimeout(() => {
              window.dispatchEvent(new Event('resize'));
          }, 10);
       });
    });
-
-   // Fermer modal
    closeModal();
 }
 

@@ -76,7 +76,6 @@ export function loadStaticData() {
 
 
 function initCache() {
-    //Test de manip du local storage
     try {
         const KeyTest = '_TEST_KEY_';
         window.localStorage.setItem(KeyTest, KeyTest);
