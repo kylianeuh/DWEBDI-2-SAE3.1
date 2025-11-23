@@ -1,0 +1,290 @@
+[
+  {
+    "ifc": "1702450PF54L",
+    "desc": "Le Master Informatique – Parcours Intelligence Artificielle de Le Mans Université forme des spécialistes capables de concevoir, développer et déployer des solutions d’intelligence artificielle grâce à une solide maîtrise des techniques de programmation, de l’algorithmique, des mathématiques appliquées et des méthodes modernes d’apprentissage automatique. La formation couvre les domaines de l’apprentissage supervisé et non supervisé, le deep learning, le traitement du langage naturel, et la vision par ordinateur. Les étudiants réalisent des projets pratiques, études de cas et stages pour appliquer les connaissances théoriques à des problématiques réelles, leur permettant de devenir des professionnels compétents et opérationnels. L’alternance est possible, renforçant l’expérience pratique et l’employabilité dans des entreprises innovantes et des laboratoires de recherche.",
+    "mail": "master-info@univ-lemans.fr",
+    "tag": "informatique",
+    "adresse": "Avenue Olivier Messiaen, 72000 Le Mans",
+    "map": "https://www.google.com/maps/search/?api=1&query=Avenue+Olivier+Messiaen%2C+72000+Le+Mans",
+    "site": "https://master-info.univ-lemans.fr/fr/index.html"
+  },
+  {
+    "ifc": "1703280SG8JV",
+    "desc": "Le Master Informatique – Parcours M1 Cloud and Network Infrastructures (CNI) de l’Université de Rennes forme des spécialistes des infrastructures réseaux et des environnements cloud, capables de comprendre, concevoir et administrer des architectures distribuées, virtualisées et sécurisées. La formation approfondit les concepts avancés de réseaux, systèmes d’exploitation, protocoles de communication et technologies cloud, en intégrant la performance, la sécurité et la fiabilité. Les étudiants travaillent sur des projets pratiques, des simulations et études de cas afin de développer des compétences opérationnelles immédiatement transférables en entreprise. Ce parcours prépare à des carrières dans l’administration de systèmes complexes, l’ingénierie cloud et le conseil en architecture informatique.",
+    "mail": "cedric.tedeschi@univ-rennes.fr",
+    "tag": "informatique",
+    "adresse": "263 avenue du Général Leclerc, 35000 Rennes",
+    "map": "https://www.google.com/maps/search/?api=1&query=263+avenue+du+Général+Leclerc%2C+35000+Rennes",
+    "site": "https://istic.univ-rennes.fr/master-informatique-parcours-cloud-and-network-infrastructures-cni"
+  },
+  {
+    "ifc": "1703280S85WE",
+    "desc": "Le Master Informatique – Parcours M1 Cloud et Réseaux (CR) de l’Université de Rennes prépare les étudiants à devenir des experts en infrastructures réseau et technologies cloud. La formation couvre les architectures distribuées, les protocoles standards, la virtualisation, la sécurité et l’optimisation des systèmes. Les étudiants participent à des travaux pratiques, projets collaboratifs et études de cas pour appliquer leurs compétences à des situations réelles. La formation permet de développer une vision globale et opérationnelle des environnements cloud et réseau modernes, et prépare à des postes d’ingénieur réseau, administrateur cloud ou consultant en infrastructures IT, avec un accent sur l’anglais professionnel et la gestion de projets technologiques.",
+    "mail": "cedric.tedeschi@univ-rennes.fr",
+    "tag": "informatique",
+    "adresse": "263 avenue du Général Leclerc, 35000 Rennes",
+    "map": "https://www.google.com/maps/search/?api=1&query=263+avenue+du+Général+Leclerc%2C+35000+Rennes",
+    "site": "https://istic.univ-rennes.fr/master-informatique-parcours-cloud-et-reseaux-cr"
+  },
+  {
+    "ifc": "1703280SPIRK",
+    "desc": "Le Master Informatique – Parcours M1 Ingénierie Logicielle (IL) de l’Université de Rennes forme des spécialistes capables de concevoir, développer et maintenir des logiciels complexes, en intégrant des bonnes pratiques en ingénierie logicielle. Les étudiants apprennent la programmation avancée, la modélisation logicielle, les architectures logicielles, les systèmes d’exploitation et l’algorithmique. Des projets pratiques et des stages permettent d’appliquer ces connaissances à des problématiques réelles, tout en favorisant la collaboration et l’innovation technique. La formation prépare aux métiers de développeur, architecte logiciel ou consultant en technologies logicielles, en entreprise, start-up ou laboratoire de recherche, avec un fort accent sur la qualité, la robustesse et la maintenabilité des solutions développées.",
+    "mail": "cedric.tedeschi@univ-rennes.fr",
+    "tag": "informatique",
+    "adresse": "263 avenue du Général Leclerc, 35000 Rennes",
+    "map": "https://www.google.com/maps/search/?api=1&query=263+avenue+du+Général+Leclerc%2C+35000+Rennes",
+    "site": "https://istic.univ-rennes.fr/master-informatique-parcours-ingenierie-logicielle-il"
+  },
+  {
+    "ifc": "1701983GPCXL",
+    "desc": "Le Master 1 Finance de l’IGR‑IAE Rennes propose une formation en alternance qui couvre l’ensemble des fondamentaux de la finance d’entreprise, la finance de marché, la gestion des risques et les produits dérivés, avec des certifications AMF, Bloomberg et préparation au CFA. Les étudiants participent à des projets pratiques, études de cas et simulations financières, acquérant des compétences analytiques et opérationnelles pour intégrer des institutions financières, entreprises ou cabinets de conseil. La formation met l’accent sur l’expérience professionnelle, la maîtrise des outils financiers et la compréhension des marchés internationaux, préparant les étudiants à des carrières opérationnelles et stratégiques dans le domaine de la finance.",
+    "mail": "jean-jacques.lilti@univ-rennes.fr",
+    "tag": "finance & comptabilité",
+    "adresse": "11 rue Jean Macé, 35000 Rennes",
+    "map": "https://www.google.com/maps/search/?api=1&query=11+rue+Jean+Macé%2C+35000+Rennes",
+    "site": "https://igr.univ-rennes.fr/master-finance-1-alternance"
+  },
+  {
+    "ifc": "1701983GDXKN",
+    "desc": "Le Master 1 Finance de l’IGR‑IAE Rennes en formation initiale permet d'acquérir des compétences solides en finance d’entreprise, gestion bancaire, diagnostic financier et finance de marché, avec des certifications professionnelles telles que AMF, Bloomberg et CFA. Les étudiants réalisent des études de cas et projets pratiques afin de mettre en œuvre leurs connaissances sur des problématiques réelles. La formation prépare aux spécialisations de Master 2 en audit, gestion des risques, stratégie financière, finance verte ou corporate finance, et développe l’employabilité et les compétences analytiques des étudiants pour évoluer dans le secteur financier national et international.",
+    "mail": "jean-jacques.lilti@univ-rennes.fr",
+    "tag": "finance & comptabilité",
+    "adresse": "11 rue Jean Macé, 35000 Rennes",
+    "map": "https://www.google.com/maps/search/?api=1&query=11+rue+Jean+Macé%2C+35000+Rennes",
+    "site": "https://igr.univ-rennes.fr/master-finance-1-formation-initiale"
+  },
+  {
+    "ifc": "1604770KD64R",
+    "desc": "Le Master Comptabilité - Contrôle - Audit en alternance au Cnam Intec (Paris) propose une formation professionnalisante avec des cours en anglais. Les étudiants acquièrent des compétences en comptabilité, contrôle de gestion et audit, en alternant théorie et pratique en entreprise. Le parcours permet de se spécialiser dans la gestion financière, l’analyse des comptes et l’audit opérationnel, tout en développant une expérience concrète dans des environnements professionnels variés et internationaux.",
+    "mail": "aurelie.tran@lecnam.net",
+    "tag": "finance & comptabilité",
+    "adresse": "292 rue Saint-Martin, 75003 Paris",
+    "map": "https://www.google.com/maps/search/?api=1&query=292+rue+Saint-Martin%2C+75003+Paris",
+    "site": "https://intec.cnam.fr/offre-de-formation/master-cca"
+  },
+  {
+    "ifc": "1604770KDHIQ",
+    "desc": "Le Master Comptabilité - Contrôle - Audit en alternance au Cnam Intec (Paris) offre une formation pratique et professionnalisante, permettant aux étudiants de se spécialiser dans les métiers de la comptabilité, du contrôle de gestion et de l’audit financier. La formation combine cours théoriques, ateliers pratiques et missions en entreprise, et prépare les étudiants à des postes opérationnels dans les cabinets d’audit, services financiers d’entreprises ou institutions publiques, tout en favorisant le développement de compétences analytiques et la maîtrise des outils financiers modernes.",
+    "mail": "aurelie.tran@lecnam.net",
+    "tag": "finance & comptabilité",
+    "adresse": "292 rue Saint-Martin, 75003 Paris",
+    "map": "https://www.google.com/maps/search/?api=1&query=292+rue+Saint-Martin%2C+75003+Paris",
+    "site": "https://intec.cnam.fr/offre-de-formation/master-cca"
+  },
+  {
+    "ifc": "1501412VGN6D",
+    "desc": "Le Master Management de l’Université Paris 8 en alternance (apprentissage ou contrat de professionnalisation) permet aux étudiants d’acquérir des compétences opérationnelles en management tout en travaillant en entreprise. La formation combine enseignements théoriques et mises en situation pratiques sur la stratégie, la gestion de projet et la conduite du changement. Les étudiants développent des compétences en leadership, communication et organisation, et participent à des projets professionnels réels pour devenir des managers efficaces et opérationnels capables de s’adapter à différents secteurs et structures.",
+    "mail": "master-management@univ-paris8.fr",
+    "tag": "management",
+    "adresse": "2 rue de la Liberté, 93526 Saint-Denis",
+    "map": "https://www.google.com/maps/search/?api=1&query=2+rue+de+la+Liberté%2C+93526+Saint-Denis",
+    "site": "https://ufr-aes.univ-paris8.fr/master-management"
+  },
+  {
+    "ifc": "1603064LYKMH",
+    "desc": "Le Master Management – Parcours Achats et Logistique de l’IAE Savoie Mont Blanc (Chambéry) forme des spécialistes capables de gérer les flux, les approvisionnements et les opérations logistiques dans des entreprises industrielles ou commerciales. Les étudiants apprennent à optimiser les processus, à planifier et coordonner les activités logistiques et à analyser les performances. Des projets pratiques, études de cas et stages permettent d’appliquer les connaissances à des situations réelles. La formation prépare à des postes opérationnels et stratégiques dans le management des achats et la logistique industrielle.",
+    "mail": "llaforet@univ-smb.fr",
+    "tag": "management",
+    "adresse": "27 Rue Marcoz, 73000 Chambéry",
+    "map": "https://www.google.com/maps/search/?api=1&query=27+Rue+Marcoz%2C+73000+Chambéry",
+    "site": "https://www.iae.univ-smb.fr/master-management-parcours-achats-et-logistique-362240.kjsp"
+  },
+  {
+    "ifc": "1603064L56JL",
+    "desc": "Le Master Management – Parcours European Master in Business Studies de l’IAE Savoie Mont Blanc forme des étudiants à la gestion internationale et à la conduite de projets dans des environnements multiculturels. La formation, entièrement en anglais, s’appuie sur une approche professionnalisante combinant management stratégique, pilotage des organisations, analyse financière, marketing international et travail en groupe. Les candidats doivent justifier d’un niveau solide en économie-gestion, d’une maîtrise attestée de l’anglais et d’un parcours académique cohérent avec un projet professionnel orienté vers le management international. La sélection se fait sur dossier et entretien, avec une forte exigence sur les résultats, la motivation et l’adéquation du profil de l’étudiant aux attentes du parcours.",
+    "mail": "aude.pommeret@univ-smb.fr",
+    "tag": "management",
+    "adresse": "4 Chemin de Bellevue, 74940 Annecy-le-Vieux",
+    "map": "https://www.google.com/maps/search/?api=1&query=4+Chemin+de+Bellevue%2C+74940+Annecy-le-Vieux",
+    "site": "https://www.iae.univ-smb.fr/european-master-in-business-studies-embs-362244.kjsp"
+  },
+  {
+    "ifc": "1603064LU7DY",
+    "desc": "Le Master Management – Parcours Amélioration de la Performance Industrielle de l’IAE Savoie Mont Blanc (Annecy-Le-Vieux) en alternance (apprentissage ou contrat de professionnalisation) permet aux étudiants de développer des compétences pratiques et opérationnelles dans l’optimisation des processus industriels et le pilotage de projets d’amélioration. Les étudiants travaillent sur des projets concrets en entreprise, appliquant les méthodes de lean management, d’analyse de performance et d’organisation, afin d’être immédiatement efficaces dans des postes de management industriel et de conseil en amélioration continue.",
+    "mail": "emmanuel.duclos@univ-smb.fr",
+    "tag": "management",
+    "adresse": "4 Chemin de Bellevue, 74940 Annecy-le-Vieux",
+    "map": "https://www.google.com/maps/search/?api=1&query=4+Chemin+de+Bellevue%2C+74940+Annecy-le-Vieux",
+    "site": "https://www.iae.univ-smb.fr/master-management-parcours-amelioration-de-la-performance-industrielle-api-362226.kjsp"
+  },
+  {
+    "ifc": "1800799UZ1SW",
+    "desc": "Le Master Gestion des Ressources Humaines (GRH) en formation initiale à Aix-Marseille Université prépare les étudiants à piloter la fonction RH dans les organisations. La formation couvre le recrutement, la formation, la gestion des carrières, le droit social, la gestion de la performance et les relations sociales. Les étudiants participent à des ateliers pratiques, stages et projets collaboratifs pour appliquer leurs connaissances à des situations concrètes, développant des compétences opérationnelles et stratégiques pour des postes de responsable RH, chargé de formation ou consultant en ressources humaines.",
+    "mail": "feg-master1-rh@univ-amu.fr",
+    "tag": "ressources humaines",
+    "adresse": "3 avenue Robert Schuman, 13628 Aix-en-Provence",
+    "map": "https://www.google.com/maps/search/?api=1&query=3+avenue+Robert+Schuman%2C+13628+Aix-en-Provence",
+    "site": "https://feg.univ-amu.fr/master-gestion-ressources-humaines-grh"
+  },
+  {
+    "ifc": "1800799UJ6R4",
+    "desc": "Le Master Gestion des Ressources Humaines (GRH) en alternance (apprentissage ou contrat de professionnalisation) à Aix-Marseille Université permet aux étudiants d’acquérir des compétences pratiques et concrètes en ressources humaines. La formation combine cours théoriques et missions en entreprise, couvrant le recrutement, la formation, la gestion des carrières et le développement organisationnel. Les étudiants sont ainsi préparés à des postes opérationnels en RH, capables de gérer les équipes, les projets et les transformations organisationnelles de manière efficace et stratégique.",
+    "mail": "feg-master1-rh@univ-amu.fr",
+    "tag": "ressources humaines",
+    "adresse": "3 avenue Robert Schuman, 13628 Aix-en-Provence",
+    "map": "https://www.google.com/maps/search/?api=1&query=3+avenue+Robert+Schuman%2C+13628+Aix-en-Provence",
+    "site": "https://feg.univ-amu.fr/master-gestion-ressources-humaines-grh"
+  },
+  {
+    "ifc": "1701692REDWR",
+    "desc": "Le Master Gestion des Ressources Humaines (GRH) en alternance à l’IAE Bretagne Sud (Vannes) permet aux étudiants d’acquérir des compétences pratiques et concrètes en gestion du personnel, recrutement, formation, relations sociales et gestion des carrières. La formation combine enseignements théoriques, projets pratiques et missions en entreprise pour préparer les étudiants à des postes de responsables RH opérationnels et stratégiques dans divers types d’organisations. Les étudiants apprennent à appliquer des outils de gestion RH modernes et à piloter efficacement les processus et les équipes.",
+    "mail": "nicolas.gueguen@univ-ubs.fr",
+    "tag": "ressources humaines",
+    "adresse": "8 Rue Montaigne, 56000 Vannes",
+    "map": "https://www.google.com/maps/search/?api=1&query=8+Rue+Montaigne%2C+56000+Vannes",
+    "site": "https://www.iae.univ-ubs.fr/fr/formations/master/master-gestion-des-ressources-humaines.html"
+  },
+  {
+    "ifc": "1702262K31QC",
+    "desc": "Le Master Gestion des Ressources Humaines (GRH) en alternance à l’Ecole Universitaire de Management – IAE Clermont Auvergne prépare les étudiants à piloter la fonction RH dans des organisations variées. La formation inclut la gestion des carrières, la formation, la paie, le droit social, la communication interne et le développement organisationnel, avec des missions pratiques et études de cas. Les étudiants acquièrent des compétences opérationnelles et stratégiques, leur permettant d’assumer des responsabilités en RH, gestion de talents et conduite du changement.",
+    "mail": "info-MonMaster@uca.fr",
+    "tag": "ressources humaines",
+    "adresse": "Rue de Rabanesse, 63000 Clermont-Ferrand",
+    "map": "https://www.google.com/maps/search/?api=1&query=Rue+de+Rabanesse%2C+63000+Clermont-Ferrand",
+    "site": "https://iae.uca.fr/formation/master-gestion-des-ressources-humaines"
+  },
+  {
+    "ifc": "1800834GTXM7",
+    "desc": "Le Master Droit de l’Immobilier à Aix-Marseille Université en formation initiale prépare les étudiants aux métiers juridiques liés à l’immobilier, la construction, la gestion des patrimoines et l’urbanisme. La formation couvre le droit immobilier, le droit de la construction, les baux, les transactions, la fiscalité et la réglementation. Des cas pratiques, ateliers et projets permettent de développer l’application concrète du droit et des techniques juridiques. Les diplômés peuvent exercer comme juristes immobiliers, gestionnaires de patrimoine, notaires ou consultants en entreprise et collectivités.",
+    "mail": "elise.carpentier@univ-amu.fr",
+    "tag": "immobilier",
+    "adresse": "110 La Canebière, 13001 Marseille",
+    "map": "https://www.google.com/maps/search/?api=1&query=110+La+Canebière%2C+13001+Marseille",
+    "site": "https://facdedroit.univ-amu.fr/master-droit-immobilier"
+  },
+  {
+    "ifc": "1501063RBV8P",
+    "desc": "Le Master Droit de l’Immobilier en formation initiale à l’Université de Perpignan Via Domitia (Narbonne) forme des juristes spécialisés en droit immobilier, transactions, baux et gestion des patrimoines. La formation inclut études de cas, simulations de contrats, projets pratiques et cours théoriques approfondis. Les étudiants acquièrent les compétences nécessaires pour travailler comme juristes immobiliers, gestionnaires de patrimoine ou conseillers juridiques dans des entreprises ou collectivités locales, avec une maîtrise des aspects réglementaires et fiscaux.",
+    "mail": "sylvain.chatry@univ-perp.fr",
+    "tag": "immobilier",
+    "adresse": "58 rue de la Révolution, 11100 Narbonne",
+    "map": "https://www.google.com/maps/search/?api=1&query=58+rue+de+la+Révolution%2C+11100+Narbonne",
+    "site": "https://droit.univ-perp.fr/formations/master-droit-immobilier"
+  },
+  {
+    "ifc": "1501063R1JKE",
+    "desc": "Le Master Droit de l’Immobilier en alternance à Paris – Courbevoie permet aux étudiants de combiner formation théorique et expérience professionnelle dans le domaine immobilier, construction, transactions et gestion juridique. Les projets pratiques et stages offrent une immersion professionnelle, permettant d’acquérir les compétences nécessaires pour des postes de juriste immobilier, gestionnaire de patrimoine, notaire ou conseiller juridique en entreprise, en combinant connaissances légales et savoir-faire pratique.",
+    "mail": "sylvain.chatry@univ-perp.fr",
+    "tag": "immobilier",
+    "adresse": "Campus Paris-La Défense - 13 Avenue Léonard de Vinci, 92400 Courbevoie",
+    "map": "https://www.google.com/maps/search/?api=1&query=13+Avenue+Léonard+de+Vinci%2C+92400+Courbevoie",
+    "site": "https://www.universite-perpignan.fr/master-droit-immobilier"
+  },
+  {
+    "ifc": "1501947BR5A1",
+    "desc": "Le Master Droit de la Construction et de l’Urbanisme à l’UPEC (Créteil) en formation initiale prépare les étudiants aux métiers juridiques liés à la construction, l’urbanisme, le droit immobilier et les contrats. La formation couvre le droit de la construction, l’urbanisme réglementaire, les responsabilités civiles et pénales, les contrats de travaux et les obligations légales. Des ateliers pratiques et des projets permettent aux étudiants de mettre en application les connaissances théoriques et d’acquérir des compétences professionnelles pour devenir juriste, conseil ou avocat spécialisé en droit de la construction et de l’urbanisme.",
+    "mail": "mconsturba-droit@u-pec.fr",
+    "tag": "immobilier",
+    "adresse": "61 avenue du Général de Gaulle, 94010 Créteil",
+    "map": "https://www.google.com/maps/search/?api=1&query=61+avenue+du+Général+de+Gaulle%2C+94010+Créteil",
+    "site": "https://droit.u-pec.fr/master-droit-construction-urbanisme"
+  },
+  {
+    "ifc": "1501876Z5M1R",
+    "desc": "Le Master Arts – Parcours Études cinématographiques de l'Université de Lille offre une formation approfondie consacrée à l'analyse, l’histoire, la théorie et la compréhension des œuvres filmiques. Le programme vise à développer une solide culture cinématographique ainsi que des compétences d’analyse critique, d’écriture universitaire et de synthèse. Les enseignements permettent aux étudiants d explorer le cinéma sous ses dimensions esthétique, historique, culturelle et artistique. L’admission repose sur un bon niveau académique, une excellente maîtrise du français, une réelle culture générale et des qualités rédactionnelles cohérentes avec les exigences du cursus. La sélection s’effectue sur dossier.",
+    "mail": "melissa.gignac@univ-lille.fr",
+    "tag": "arts & culture",
+    "adresse": "Université de Lille, Pont de Bois, 59650 Villeneuve d'Ascq",
+    "map": "https://www.google.com/maps/search/?api=1&query=Université+de+Lille%2C+Pont+de+Bois%2C+59650+Villeneuve+d%27Ascq",
+    "site": "https://masters.univ-lille.fr/master-arts/parcours-etudes-cinematographiques"
+  },
+  {
+    "ifc": "1801059BUJX6",
+    "desc": "Le Master Culture et Communication – Parcours Arts et Techniques des Publics à Avignon Université prépare les étudiants à travailler dans la médiation culturelle, la communication artistique, la gestion des publics et l’animation de projets culturels. La formation combine enseignements théoriques, ateliers pratiques, stages et projets afin de développer des compétences opérationnelles, organisationnelles et créatives, permettant aux diplômés de s’intégrer dans des institutions culturelles, musées, centres d’art et collectivités territoriales.",
+    "mail": "simon.renoir@univ-avignon.fr",
+    "tag": "art & culture",
+    "adresse": "74 rue Louis Pasteur, 84029 Avignon",
+    "map": "https://www.google.com/maps/search/?api=1&query=74+rue+Louis+Pasteur%2C+84029+Avignon",
+    "site": "https://formations.univ-avignon.fr/master-culture-et-communication-parcours-arts-et-techniques-des-publics-atp-fr"
+  },
+  {
+    "ifc": "2000144GANLI",
+    "desc": "Le Master Culture, Patrimoine et Médiation – M1 Événementiel, Médiation des Arts et des Sciences à Versailles propose une formation professionnelle en médiation culturelle et événementiel scientifique ou artistique. Les étudiants acquièrent des compétences en gestion de projets, communication, médiation, coordination d’événements et organisation d’expositions. La formation inclut travaux pratiques, études de cas et stages pour former des professionnels capables de concevoir, planifier et mettre en œuvre des actions culturelles et scientifiques dans différents contextes institutionnels et associatifs.",
+    "mail": "gianni.giardino@uvsq.fr",
+    "tag": "art & culture",
+    "adresse": "47 boulevard Vauban, 78047 Guyancourt",
+    "map": "https://www.google.com/maps/search/?api=1&query=47+boulevard+Vauban%2C+78047+Guyancourt",
+    "site": "https://formations.uvsq.fr/master-culture-patrimoine-mediation-m1-evenementiel-mediation-arts-sciences-ema"
+  },
+  {
+    "ifc": "1602257J6MAZ",
+    "desc": "Le Master Arts, Lettres et Civilisations – M1 Diffusion de la Culture à l’UFR LLASIC (Saint-Martin-d’Hères) prépare les étudiants à travailler dans la diffusion culturelle, la communication des arts et la médiation. La formation inclut cours théoriques, projets pratiques, ateliers, stages et travaux collaboratifs afin de développer les compétences nécessaires pour intervenir dans le secteur culturel, les institutions patrimoniales, associations et collectivités. Les étudiants apprennent à gérer des projets culturels, organiser des événements et promouvoir des actions artistiques ou scientifiques.",
+    "mail": "laurent.demanze@univ-grenoble-alpes.fr",
+    "tag": "art & culture",
+    "adresse": "Domaine Universitaire, 38400 Saint-Martin-d'Hères",
+    "map": "https://www.google.com/maps/search/?api=1&query=Domaine+Universitaire%2C+38400+Saint-Martin-d%27Hères",
+    "site": "https://formations.univ-grenoble-alpes.fr/master-arts-lettres-civilisations/master-m1-diffusion-de-la-culture"
+  },
+  {
+    "ifc": "1702778WS8UV",
+    "desc": "Le Master Communication des Organisations – Parcours Communication organisationnelle et innovation numérique de l’Université Rennes 2 forme des professionnels capables d’analyser et de mettre en œuvre des stratégies communicationnelles dans des structures variées (entreprises, institutions, associations), en intégrant les enjeux techniques, organisationnels et numériques. Les étudiants apprennent à auditer les dispositifs de communication, piloter la transformation digitale, coordonner les systèmes d’information et conduire des projets innovants. La formation combine théorie, études de cas et projets pratiques pour préparer les diplômés à des postes de consultants, responsables communication ou chefs de projet numérique.",
+    "mail": "bruno.chaudet@univ-rennes2.fr",
+    "tag": "communication",
+    "adresse": "Place du Recteur Henri Le Moal, 35043 Rennes Cedex",
+    "map": "https://www.google.com/maps/search/?api=1&query=Place+du+Recteur+Henri+Le+Moal%2C+35043+Rennes+Cedex",
+    "site": "https://www.univ-rennes2.fr/formation/master-communication-organisations-parcours-communication-organisationnelle-innovation"
+  },
+  {
+    "ifc": "1702915VEWKZ",
+    "desc": "Le Master Culture et Communication – Parcours Études et Projets en Information‑Communication pour la Culture (EPRICC) de l’Université Rennes 2 prépare des spécialistes de la communication culturelle, capables de concevoir des stratégies de médiation, gérer des projets culturels et coordonner des actions de communication dans le secteur culturel et créatif. La formation combine théorie et pratique, sociologie des publics, médiation culturelle, gestion de projets, développement durable et outils numériques. Les étudiants participent à des stages et projets pour renforcer leur employabilité et leur expertise professionnelle.",
+    "mail": "emilie.bouillaguet@univ-rennes2.fr",
+    "tag": "communication",
+    "adresse": "Place du Recteur Henri Le Moal, 35043 Rennes Cedex",
+    "map": "https://www.google.com/maps/search/?api=1&query=Place+du+Recteur+Henri+Le+Moal%2C+35043+Rennes+Cedex",
+    "site": "https://www.univ-rennes2.fr/formation/master-culture-communication-parcours-etudes-projets-information-communication-culture"
+  },
+  {
+    "ifc": "1505010WNLA8",
+    "desc": "Le Master Communication des Organisations – Parcours Communication des Entreprises, Institutions Publiques et Associations à l’Université Sorbonne Paris Nord forme des professionnels capables de concevoir et mettre en œuvre des stratégies de communication adaptées à différents types d’organisations. La formation inclut théorie, études de cas, projets pratiques et ateliers afin de préparer aux métiers de la communication institutionnelle et organisationnelle. Les étudiants développent des compétences en rédaction, relations publiques, gestion de projets et coordination des actions communicationnelles.",
+    "mail": "amaia.errecart@univ-paris13.fr",
+    "tag": "communication",
+    "adresse": "99 avenue Jean-Baptiste Clément, 93430 Villetaneuse",
+    "map": "https://www.google.com/maps/search/?api=1&query=99+avenue+Jean-Baptiste+Clément%2C+93430+Villetaneuse",
+    "site": "https://formations.univ-paris13.fr/master-communication-des-organisations"
+  },
+  {
+    "ifc": "1601971YIVWD",
+    "desc": "Le Master Communication des Organisations – Parcours Stratégie et Conseil à l’UFR Sciences Territoires & Communication (Pessac) prépare les étudiants à élaborer et conseiller des stratégies de communication pour les entreprises et institutions publiques. La formation combine théorie, pratique, études de cas et projets, avec un accent sur le conseil stratégique, le pilotage des projets de communication et l’innovation numérique. Les étudiants acquièrent les compétences pour intervenir comme consultants, responsables communication ou chefs de projets dans des structures diverses.",
+    "mail": "master-stc-isic@u-bordeaux-montaigne.fr",
+    "tag": "communication",
+    "adresse": "Domaine Universitaire, 33607 Pessac Cedex",
+    "map": "https://www.google.com/maps/search/?api=1&query=Domaine+Universitaire%2C+33607+Pessac+Cedex",
+    "site": "https://formations.u-bordeaux-montaigne.fr/master-communication-des-organisations-parcours-strategie-et-conseil"
+  },
+  {
+    "ifc": "1800183ZQPUG",
+    "desc": "Le Master Santé – Parcours A3R : Autonomie et Résilience : Ressources et Réseaux à la Faculté de Médecine, Maïeutique et Métiers de la Santé (Vandœuvre-lès-Nancy) prépare les étudiants à comprendre et gérer l’autonomie et la résilience des patients et des systèmes de santé, en mobilisant ressources, réseaux sociaux et professionnels. La formation combine enseignements théoriques, travaux pratiques et études de cas pour permettre aux étudiants de développer des compétences d’analyse, de coordination et de mise en œuvre de stratégies adaptées aux besoins sanitaires et sociaux des populations.",
+    "mail": "monmaster-contact@univ-lorraine.fr",
+    "tag": "santé",
+    "adresse": "9 avenue de la Forêt de Haye, 54500 Vandœuvre-lès-Nancy",
+    "map": "https://www.google.com/maps/search/?api=1&query=9+avenue+de+la+Forêt+de+Haye%2C+54500+Vandœuvre-lès-Nancy",
+    "site": "https://formations.univ-lorraine.fr/master-sante-parcours-a3r-autonomie-resilience-ressources-reseaux"
+  },
+  {
+    "ifc": "1502621J1S3W",
+    "desc": "Le Master Santé – Parcours Épidémiologie, Données de Santé, Biostatistique à l’UFR Médecine de Montpellier forme des spécialistes capables d’analyser, interpréter et exploiter les données de santé pour la recherche, la prévention et la gestion des politiques sanitaires. Les étudiants acquièrent des compétences en statistiques, épidémiologie, gestion des bases de données et communication scientifique. La formation combine théorie, travaux pratiques et projets appliqués pour préparer aux métiers d’épidémiologiste, data analyst santé ou chercheur en santé publique.",
+    "mail": "thibault.mura@chu-nimes.fr",
+    "tag": "santé",
+    "adresse": "2 rue École de Médecine, 34000 Montpellier",
+    "map": "https://www.google.com/maps/search/?api=1&query=2+rue+École+de+Médecine%2C+34000+Montpellier",
+    "site": "https://facmedecine.umontpellier.fr/edsb/"
+  },
+  {
+    "ifc": "1800183ZIUDJ",
+    "desc": "Le Master Santé – Parcours MEDCRIM : Médecine légale, Criminalistique, Archéothanatologie, Victimologie à la Faculté de Médecine, Maïeutique et Métiers de la Santé (Vandœuvre-lès-Nancy) prépare les étudiants aux métiers de la médecine légale et de l’expertise médico-légale. La formation inclut enseignements théoriques, travaux pratiques, études de cas et simulations pour développer les compétences nécessaires à l’analyse, l’expertise et la gestion des enquêtes médico-légales et criminologiques, tout en respectant les cadres juridiques et éthiques.",
+    "mail": "monmaster-contact@univ-lorraine.fr",
+    "tag": "santé",
+    "adresse": "9 avenue de la Forêt de Haye, 54500 Vandœuvre-lès-Nancy",
+    "map": "https://www.google.com/maps/search/?api=1&query=9+avenue+de+la+Forêt+de+Haye%2C+54500+Vandœuvre-lès-Nancy",
+    "site": "https://formations.univ-lorraine.fr/master-sante-parcours-medcrim-medecine-legale-criminalistique-archeothanatologie-victimologie"
+  },
+  {
+    "ifc": "2400022ZNDXQ",
+    "desc": "Le Master Droit de la santé de l’Université de Lorraine forme des professionnels capables d’analyser et d’encadrer juridiquement les enjeux liés au secteur sanitaire et médico-social. La formation, accessible principalement en formation continue, s’adresse à des candidats disposant de compétences solides en droit civil, droit administratif, droit du travail, droit des personnes et d’une formation juridique préalable cohérente. Sélectif, le master recrute sur dossier puis entretien, en évaluant le niveau académique, la pertinence du projet et la qualité des pièces justificatives. Le programme permet d’acquérir une expertise juridique appliquée aux institutions de santé, à la réglementation sanitaire, à la responsabilité médicale et au fonctionnement des politiques publiques de santé.",
+    "mail": "monmaster-contact@univ-lorraine.fr",
+    "tag": "santé",
+    "adresse": "13 place Carnot, 54000 Nancy",
+    "map": "https://www.google.com/maps/search/?api=1&query=13+place+Carnot%2C+54000+Nancy",
+    "site": "https://formations.univ-lorraine.fr/master-droit-sante"
+  }
+]

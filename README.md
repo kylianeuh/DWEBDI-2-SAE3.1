@@ -1,92 +1,95 @@
-# Demonstration de l'exploitation de Masters-stats-api avec fetch et echarts
+# 🎓 Masterz - Dashboard d'Orientation Master
 
-![Diagramme de composant de l'application web](./documentation/componentDiagram.png "Diagramme de composant de l'application web")
+![Statut](https://img.shields.io/badge/Status-Prototype-orange)
+![Version](https://img.shields.io/badge/Version-1.0.0-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-__Diagramme de composants de l'application web__
+**Masterz** est une application web de visualisation de données (Data Visualization) destinée aux étudiants. Elle permet d'obtenir rapidement des indicateurs clés sur les formations de Master en France (sélectivité, insertion professionnelle, salaires) en agrégeant des données publiques.
 
-## Prérequis :
+Ce projet a été réalisé dans le cadre de la **SAE 303** (Conception de services et produits multimédias).
 
-_Si vous récupérez ce projet depuis un dépôt GIT :_
+## 📑 Table des Matières
+- [Fonctionnalités](#-fonctionnalités)
+- [Technologies Utilisées](#-technologies-utilisées)
+- [Architecture des Données](#-architecture-des-données)
+- [Installation et Démarrage](#-installation-et-démarrage)
+- [Structure du Projet](#-structure-du-projet)
+- [Auteurs](#-auteurs)
 
-- node.js ≥ 22
-- un serveur HTTP ou un live serveur d'IDE
+## ✨ Fonctionnalités
 
-_Si vous récupérez ce projet depuis une archive zip :_
+L'application récupère et croise des données pour afficher :
 
-- un serveur HTTP ou un _live server_ d'IDE
+* **Fiche d'identité du Master :** Nom, établissement, ville, mode (alternance/initial).
+* **Jauges de Performance (ECharts) :**
+    * 📉 **Taux d'accès :** Pourcentage d'admis par rapport aux candidats.
+    * 👔 **Taux d'emploi cadre :** Proportion de diplômés occupant un poste de cadre.
+* **Répartition des Origines :** Graphique "Donut" montrant la provenance des étudiants (Licence Générale, Pro, Master, Autre).
+* **Données Financières :** Comparaison du salaire médian en sortie de formation vs la moyenne du domaine (via CSV).
+* **Localisation :** Carte interactive (OpenStreetMap/Google) et informations de contact.
+* **Comparateur :** Suggestions de formations similaires (Interface UI).
 
-## Mise en oeuvre :
+## 🛠 Technologies Utilisées
 
-_Si vous récupérez ce projet depuis un dépôt GIT :_
+* **HTML5 / CSS3 :** Structure sémantique et design responsive (Mobile First).
+* **JavaScript (ES6+) :**
+    * Utilisation de **Modules ES** (`import`/`export`) pour structurer le code.
+    * **Fetch API** pour les appels asynchrones (API OpenData & fichiers locaux).
+    * **LocalStorage** pour la mise en cache des configurations.
+* **[Apache ECharts](https://echarts.apache.org/) :** Librairie de visualisation de données interactive.
 
-- installez les dépendances avec npm: `npm install`
-- accès à la page index.html depuis votre serveur HTTP (ou votre _live server_)
+## 📊 Architecture des Données
 
-_Si vous récupérez ce projet depuis une archive zip :_
+L'application s'appuie sur une architecture hybride :
 
-- accès à la page index.html depuis votre serveur HTTP (ou votre _live server_)
+1.  **API OpenData (Temps réel) :**
+    * *Source :* `data.enseignementsup-recherche.gouv.fr` (Jeu de données "Mon Master").
+    * Utilisé pour les informations générales et les taux de candidature.
+2.  **Fichier CSV (Statistique lourde) :**
+    * *Fichier :* `fr-esr-insertion_professionnelle-master_up2025.csv`
+    * Utilisé pour les données d'insertion professionnelle et de salaires (parsing JS côté client).
+3.  **Fichier JSON (Données statiques) :**
+    * *Fichier :* `data.json`
+    * Sert de base de données locale pour les descriptions détaillées et les métadonnées spécifiques non fournies par l'API.
 
-## Composants
+## 🚀 Installation et Démarrage
 
-L'application est composée de 6 composants répartis sur 5 fichiers : network.js, storage.js vizDataPreprocessor.js, visualisations.js et main.js.
+⚠️ **Important :** Ce projet utilisant des modules ES6 (`type="module"`) et la méthode `fetch` sur des fichiers locaux, il **ne peut pas** être ouvert directement en double-cliquant sur `index.html` (erreur CORS).
 
-Les composants, illustrés en bleu, sont des regroupements conceptuels de fonctions ayant une thématique commune.
+Vous devez utiliser un **serveur local**.
 
-Les méthodes préfixées avec un plus "+" sont "publiques", exposées par l'interface modélisée dans le schéma par un rond bleu, et dans le code via un objet global rattaché à la constante window du navigateur sous la propriété "MAINAPP". C'est une manière ancienne mais simple et efficace de paratager des données (fonctions, constantes...) entre différents scripts de la page. Ainsi chaque script de composant qui doit exposer son interface de fonction "publiques" commencera par créer cet objet MAINAPP s'il n'existe pas déjà puis attaché à ce dernier son interface (ex.: viz, storage...).
+### Prérequis
+* Un navigateur moderne.
+* Une extension type **Live Server** (VS Code) ou Python/Node.js.
 
-Le composant violet "REST API" représente l'API REST distante d'accès aux données
+### Méthode recommandée (VS Code)
+1.  Clonez le projet :
+    ```bash
+    git clone [https://github.com/votre-user/masterz-sae303.git](https://github.com/votre-user/masterz-sae303.git)
+    ```
+2.  Ouvrez le dossier dans VS Code.
+3.  Faites un clic droit sur `index.html` > **Open with Live Server**.
 
-## Data Loader, dans network.js
+### Méthode alternative (Python)
+```bash
+cd chemin/vers/le/projet
+python -m http.server 8000
+# Ouvrez http://localhost:8000 dans votre navigateur
 
-Ce composant est responsable de l'accès aux réseau pour exploiter l'API REST. Il offre pour cette démonstration deux fonctions : 
-- _loadEntities_ récupère sous forme de dictionnaire d'entités par id les académies, les régions, les secteurs disciplinaires et les disciplines.
-- _requestStats_ effectue de requête de récupération de statistiques d'après des filtres et des paramètres de retours.
+### Structure du projet
 
-## App Storage Manager, dans storage.js
-
-Ce composant est responsable du stockage en mémoire des données de l'application web. C'est un système de stockage clé-valeur qui permet de stocker n'importe quelle structure de données associée à une clé. Dans son implémentation actuelle, le stockage est un simple objet en mémoire vive, donc perdu au rechargement de la page (ou à la fermeture de celle-ci).
-
-## HeatMap Viz Manager, dans visualisations.js
-
-Ce composant gère la visualisation de carte de chaleur (heatmap) des moyennes de salaires médians net temps plein par discipline et région. Celui-ci expose 3 fonctions "publiques" pour gérer la visualisation :
-- createSalaireHeatmap, pour créer la visualisation intiale ;
-- updateSalaireHeatmapData, pour mettre à jour la visualisation avec de nouvelles données ;
-- updateSalaireHeatmapTitle, pour mettre à jour le titre de la visualisation.
-
-## Lines Vis Manager, dans visualisations.js
-
-Ce composant gère la visualisation de courbes d'évolution dans le temps des moyennes de de salaires médians net temps plein, soit par discipline pour une région selectionnée, soit par région pour une disicpline selectionnée. Celui-ci expose de la même manière 3 fonctions "publiques" pour gérer la visualisation :
-- createSalaireLines, pour créer la visualisation intiale ;
-- updateSalaireLinesData, pour mettre à jour la visualisation avec de nouvelles données ;
-- updateSalaireLinesTitle, pour mettre à jour le titre de la visualisation.
-
-## Data viz preprocessor, dans vizDataPreprocessor.js
-
-Ce composant permet de préparer les données en vue de leur visualisation. Il offre deux fonctions publiques pour préparer les données pour la visualisation de carte de chaleur et pour la visualisation des courbes d'évolution des salaires dans le temps.
-
-## Ochestrator, dans main.js
-
-Ce composant particulier n'offre pas d'interface de fonction publiques, mais le point d'entrée de l'application. Sa fonction _main()_ est la première exécutée, responsable de
-1. la création initiales des visualisations par les composants __HeatMap Viz Manager__ et __Lines Vis Manager__, avec la mise en place de gestionnaires d'évènements (click) pour la heatmap (fonctions callback _onSelectDisciplineByNom_ et _onSelectRegionByNom_)
-2. la récupération des données via le composant __Data Loader__,
-3. le calcul de données simplifiées (cf code-source, tableau de quadruplet) pas sa fonction "privée" _creerMoyennesSalairesParAnneeRegionDiscipline()_
-4. le stockage de ces données via le composant __App Storage Manager__,  
-5. un premier affichage de la visualition heatmap par sa fonction privée _updateVisualisations()_ qui s'appuie sur les composants __App Storage Manager__, __Data viz preprocessor__ et __HeatMap Viz Manager__
-
-Par la suite, les gestionnaire dévènements _onSelectDisciplineByNom_ et _onSelectRegionByNom_ invoqueront la fonction _updateVisualisations()_ qui mettra à jour la visualisation de courbes en s'appuie sur les composants __App Storage Manager__,  __Data viz preprocessor__ et __Lines Vis Manager__.
-
-# Notes :
-
-- Il n'est pas forcément d'obligatoire d'avoir un composant par fichier, bien que cela soit souvent recommandé pour ne pas avoir de fichiers trop gros et ainsi ne pas diminuer la lisibilité du code et son maintien.
-- Dans notre cas, les composants sont purement conceptuels, il n'ont pas d'existence propre dans le code, qui ne fait que recenser des fonctions et en exposer certaines par des interfaces partagées (via l'objet commun MAINAPP.viz)
-- La modélisation conceptuelle a un intérêt majeur : elle permet de facilement vous situer dans le code, de rationnaliser son organisation et de permettre d'ajouter de nouvelles fonctionnalités, de complexifier l'application en diminuant les risque de régressions fonctionnelles et de problème d'effet de bord. 
-  - Par exemple, nous pourrions décider de faire évoluer le composant __App Storage Manager__ pour exploiter les capacité du navigateur à stocker localement nos données (localStorage, sessionStorage) pour permettre de les retrouver à la prochaine ouverture de la page. Si nous respectons l'interface exposée (i.e. : les signatures de fonctions "publiques" du composant) alors le risque d'effet de bord sur le reste est quasi nul.
-- la séparation du code en différent fichier a un avantage important : la diminution du code-source par fichier et son organisation logique, ce qui simplifie sa compréhension et sa maintenance. Dans le cas présent, elle présente un inconvient : l'augmentation de nombre de fichier à télécharger par le navigateur, et le besoin de passer passer par une structure "globale" commune (dans cette démo MAINAPP), qui n'est pas des plus élégant. Toutefois, si vous souhaitez découvrir comment vous pourriez vous passer de cette technique en conservant cette approche de développement par composants, n'hésitez-pas à consulter ces ressources technologiques :
-  - Module ECMASCRIPT https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
-    - C'est le système de module officiel supporté nativement par tous les navigateurs modernes
-    - il ressemble à ce que vous avez en PHP et Java (import ...)
-    - il permet de séparer notre code en différent fichier sans avoir à utiliser la technique de variable partagée et sans avoir à référencer tous nos script dans la page index.html
-    - il permet d'optimiser votre code automatiquement (ex.: Tree shaking)
-    - il permet d'obtenir de meilleurs performance, notamment en utilisant les fonctionnalités de chargement asynchrone des modules (le navigateur charge un module uniquement au moment où il en a besoin et pas dès le début au chargement de la page)
-
-
+/
+├── index.html              # Point d'entrée de l'application
+├── assets/
+│   └── css/
+│       └── style.css       # Feuilles de style (Variables, Flexbox, Grid)
+├── csv/
+│   └── fr-esr...2025.csv   # Données brutes insertion pro
+├── modules/                # Logique JavaScript
+│   ├── orchestrator.js     # Contrôleur principal (Appels API -> Graphs)
+│   ├── RESTManagement.js   # Gestion des appels réseaux et parsing CSV
+│   ├── cacheManagement.js  # Gestion du LocalStorage
+│   ├── [graph]Graph.js     # Modules de génération des graphiques ECharts
+│   └── script.js           # Gestion UI (Menu, Modales)
+└── src/
+  └── data.json           # Données locales complémentaires

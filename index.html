@@ -1,36 +1,264 @@
 <!DOCTYPE html>
-<html>
+<html lang="frr">
 
 <head>
-  <meta charset="utf-8" />
-  <!-- styles -->
-  <link href="styles/main.css" rel="stylesheet" />
-
-  <!-- Bibliotheque echarts -->
-  <script src="node_modules/echarts/dist/echarts.js"></script>
-
-  <!-- Bibliotheques du site -->
-  <script src="scripts/network.js" defer></script>
-  <script src="scripts/storage.js" defer></script>
-  <script src="scripts/visDataPreprocessor.js" defer></script>
-  <script src="scripts/visualisations.js" defer></script>
-  <script src="scripts/main.js" defer></script>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- ========== GraphViz ========== -->
+   <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+   <script type="module" src="./modules/orchestrator.js"></script>
+   <!-- ========== Google ========== -->
+   <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+   <!-- ========== CSS ========== -->
+   <link rel="stylesheet" href="assets/css/style.css">
+   <title>SAE303 - Master Prototype</title>
 </head>
 
 <body>
-  <h1>Visualisation de salaires médians 30 mois à l'issue de l'obtention du master</h1>
-  <main>
-    <div id="salaireMedianHeatmap">
-      <h3></h3>
-      <div class="viz"></div>
-    </div>
-    <div id="salaireLines">
-      <h3></h3>
-      <div class="viz"></div>
-    </div>
-  </main>
 
+   <header class="header">
+      <!-- ===== Logo ===== -->
+      <h1 class="header__title">Masterz</h1>
 
+      <!-- ===== Toggle Button ===== -->
+      <button class="toggle">
+         <span class="material-symbols-outlined">
+            menu
+         </span>
+      </button>
+
+      <!-- ===== Navbar ===== -->
+      <nav class="navbar">
+         <ul class="navbar__list">
+            <li class="navbar__item">
+               <a href="#informations" class="navbar__link">Informations</a>
+            </li>
+
+            <li class="navbar__item">
+               <a href="#statistique" class="navbar__link">Statistiques</a>
+            </li>
+
+            <li class="navbar__item">
+               <a href="#contact" class="navbar__link">Contact</a>
+            </li>
+         </ul>
+      </nav>
+   </header>
+
+   <main class="main">
+      <!-- ===== Filtre Tags ===== -->
+      <nav class="filter">
+
+         <!-- ===== Tags ===== -->
+         <ul class="filter__list">
+            <li class="filter__tag">
+               <a href="#" class="filter__tag-link">Informatique</a>
+            </li>
+
+            <li class="filter__tag">
+               <a href="#" class="filter__tag-link">Finance & Comptabilité</a>
+            </li>
+
+            <li class="filter__tag">
+               <a href="#" class="filter__tag-link">Management</a>
+            </li>
+
+            <li class="filter__tag">
+               <a href="#" class="filter__tag-link">Ressources Humaines</a>
+            </li>
+
+            <li class="filter__tag">
+               <a href="#" class="filter__tag-link">Immobilier</a>
+            </li>
+
+            <li class="filter__tag">
+               <a href="#" class="filter__tag-link">Art & Culture</a>
+            </li>
+
+            <li class="filter__tag">
+               <a href="#" class="filter__tag-link">Communication</a>
+            </li>
+
+            <li class="filter__tag">
+               <a href="#" class="filter__tag-link">Santé</a>
+            </li>
+         </ul>
+      </nav>
+
+      <div class="container">
+         <!-- ===== Première section ===== -->
+         <section class="section" id="informations">
+            <div class="section__container">
+               <div class="section__left-item">
+                  <!-- ===== Partie gauche - Master ===== -->
+                  <h2 class="left-item__title" id="nomParcours"></h2>
+
+                  <div class="left-item__tags">
+                     <p class="left-item__tag">
+                        <span class="material-symbols-outlined symbol">
+                           work
+                        </span>
+                        <span id="alternance"></span>
+                     </p>
+
+                     <p class="left-item__tag">
+                        <span class="material-symbols-outlined symbol">
+                           timer
+                        </span>
+                        2 ans
+                     </p>
+                  </div>
+
+                  <p class="left-item__location" id="localisation"></p>
+
+                  <p class="left-item__description" id="descriptionParcours">
+                  </p>
+               </div>
+
+               <!-- ===== Partie droite - Formations similaires ===== -->
+               <div class="section__right-item">
+                  <h2 class="right-item__title">Formations similaires</h2>
+
+                  <div class="right-item__formation-container">
+                     <article class="formation">
+                        <div class="formation__informations">
+                           <h3 class="formation__title">Master 1 - ingénierie du web</h3>
+                           <p class="formation__location">Schola Nova <span>·</span> Paris</p>
+                        </div>
+
+                        <a href="#" class="formation__link">
+                           Voir la fiche
+                        </a>
+
+                        <a href="#" class="formation__link">
+                           Comparer
+                        </a>
+                     </article>
+
+                     <article class="formation">
+                        <div class="formation__informations">
+                           <h3 class="formation__title">Master 1 - ingénierie du web</h3>
+                           <p class="formation__location">Schola Nova <span>·</span> Paris</p>
+                        </div>
+
+                        <a href="#" class="formation__link">
+                           Voir la fiche
+                        </a>
+
+                        <a href="#" class="formation__link">
+                           Comparer
+                        </a>
+                     </article>
+
+                     <article class="formation">
+                        <div class="formation__informations">
+                           <h3 class="formation__title">Master 1 - ingénierie du web</h3>
+                           <p class="formation__location">Schola Nova <span>·</span> Paris</p>
+                        </div>
+
+                        <a href="#" class="formation__link">
+                           Voir la fiche
+                        </a>
+
+                        <a href="#" class="formation__link">
+                           Comparer
+                        </a>
+                     </article>
+                  </div>
+               </div>
+            </div>
+         </section>
+
+         <!-- ===== Deuxième section ===== -->
+         <section class="section" id="statistique">
+            <h2 class="section__title">Statistiques utiles</h2>
+
+            <div class="section__gallery">
+               <figure class="gallery viz">
+                  <div id="tauxSelectivite"></div>
+               </figure>
+
+               <figure class="gallery viz">
+                  <div id="tauxCadre"></div>
+               </figure>
+
+               <figure class="gallery viz">
+                 <div id="diplomeOrigine"></div>
+               </figure>
+
+               <figure class="gallery viz">
+                  <div id="salaire"></div>
+               </figure>
+
+               <figure class="gallery">
+                  <img class="gallery__img" src="https://media1.tenor.com/m/VbbSQLP4g0cAAAAd/neuron-activation.gif"
+                     alt="">
+               </figure>
+
+               <figure class="gallery">
+                  <img class="gallery__img" src="https://media1.tenor.com/m/YgrLNrQ522sAAAAd/rat-dance.gif" alt="">
+               </figure>
+            </div>
+
+            <div class="modal__container">
+               <figure class="modal viz">
+                  <button class="modal__btn">
+                     <span class="material-symbols-outlined">
+                        close
+                     </span>
+                  </button>
+
+                  <div id="tauxSelectivite-modal"></div>
+                  <div id="tauxCadre-modal"></div>
+                  <div id="diplomeOrigine-modal"></div>
+                  <div id="salaire-modal"></div>
+               </figure>
+            </div>
+         </section>
+
+         <!-- ===== Troisième section ===== -->
+         <section class="section" id="contact">
+            <h2 class="section__title">Informations complémentaires</h2>
+
+            <div class="container__map">
+               <iframe class="section__map" id="mapEtab"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=2.3731970787048344%2C48.88611663941576%2C2.375530600547791%2C48.88764751410974&amp;layer=mapnik"></iframe>
+               <div class="section__details">
+                  <p class="section__detail">
+                     <span class="material-symbols-outlined">
+                        map
+                     </span>
+                     <span id="adresseEtab"></span>
+                  </p>
+
+                  <p class="section__detail">
+                     <span class="material-symbols-outlined">
+                        alternate_email
+                     </span>
+                     <span id="mailParcours"></span>
+                  </p>
+
+                  <p class="section__detail">
+                     <span class="material-symbols-outlined">
+                        language
+                     </span>
+                     <a id="siteEtab" target="_blank"></a>
+                  </p>
+               </div>
+            </div>
+         </section>
+      </div>
+   </main>
+
+   <footer class="footer">
+      <p class="footer__text">&copy; 2025 Masterz Prototype. Tous droits réservés.</p>
+   </footer>
+
+   <!-- ========== JavaScript ========== -->
+   <script src="assets/js/script.js"></script>
+
+   <!-- TODO Utiliser des noms de classes plus simples et cohérents -->
 </body>
 
 </html>
