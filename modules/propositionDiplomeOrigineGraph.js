@@ -34,7 +34,9 @@ function settingsPropositionDiplomeOrigine(
     return {
       color: ["#6200FF", "#7C2BFF", "#B080FF", "#CBABFF", "#E4D4FF"],
       title: {
-        text: showName ? 'Candidats ayant reçus une proposition' : "Candidats ayant\nreçus une proposition"
+        text: (!isMobile && showName) 
+        ? 'Candidats ayant reçus une proposition' 
+        : "Candidats ayant\nreçus une proposition"
       },
       tooltip: {
         trigger: "item",
