@@ -105,7 +105,6 @@ button {
 
 .section {
    scroll-margin: 76px;
-   margin-bottom: 50px;
 }
 
 .section_title {
@@ -396,7 +395,6 @@ button {
    display: flex;
    align-items: center;
    gap: 5px;
-   margin-top: -12px;
 }
 
 .formation__location span {
@@ -725,6 +723,10 @@ button {
       width: 70%;
    }
 
+   .formation {
+      width: 688px;
+   }
+
    .gallery.active {
       height: 100%;
    }
@@ -854,6 +856,10 @@ button {
 
    .formation__link {
       font-size: .875rem;
+   }
+
+   .formation {
+      width: auto;
    }
 
    /* ===== Partie droite - Formations similaires ===== */
