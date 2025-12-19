@@ -7,6 +7,20 @@ const charts = [];
  */
 
 function settingsTauxSelectivite(taux, showName = true) {
+  const isMobile = window.innerWidth < 768; // Standardisé à 768px comme les autres
+
+  // 1. Cas Mobile "Petite Viz" : On affiche juste le titre sur plusieurs lignes
+  if (isMobile && !showName) {
+    return {
+      title: {
+        text: "Niveau de\nsélectivité",
+        left: "center",
+        top: "middle",
+      }
+    };
+  }
+
+  // 2. Configuration Standard
   return {
     title: {
       text: "Niveau de sélectivité",
@@ -22,7 +36,8 @@ function settingsTauxSelectivite(taux, showName = true) {
         radius: "100%",
         center: ["50%", "70%"],
 
-        // Masquer la roue, ticks, labels, pointeur et progress si showName = false
+        // Masquer la roue, ticks, labels, pointeur et progress si showName = false (Desktop Dashboard)
+        // Cela permet d'afficher uniquement le Gros Chiffre sur le Dashboard Desktop
         progress: {
           show: showName,
           width: 18,
@@ -40,7 +55,7 @@ function settingsTauxSelectivite(taux, showName = true) {
         pointer: { show: false },
         anchor: { show: false },
 
-        // Toujours afficher le pourcentage
+        // Toujours afficher le pourcentage (sauf si isMobile && !showName géré plus haut)
         detail: {
           valueAnimation: true,
           fontSize: 40,
@@ -60,9 +75,15 @@ function settingsTauxSelectivite(taux, showName = true) {
 window.addEventListener("resize", function () {
   charts.forEach((chart) => {
     try {
-      // Vérifie si le conteneur est toujours dans le DOM avant de resize
       if (document.body.contains(chart.getDom())) {
         chart.resize();
+
+        // RECUPERATION DES DONNÉES SAUVEGARDÉES ET MISE A JOUR
+        if (chart._dataStore) {
+          const { taux, showName } = chart._dataStore;
+          // Correction : Appel de la bonne fonction settingsTauxSelectivite
+          chart.setOption(settingsTauxSelectivite(taux, showName), true);
+        }
       }
     } catch (e) {
       console.warn("Erreur lors du redimensionnement du graphique", e);
@@ -90,6 +111,10 @@ function create(selector, taux, showName = false) {
   }
 
   myChart = echarts.init(dom);
+
+  // SAUVEGARDE DES DONNÉES pour le resize
+  myChart._dataStore = { taux, showName };
+
   myChart.setOption(settingsTauxSelectivite(taux, showName));
 
   // Ajoute le graphique au tableau de suivi pour le resize global

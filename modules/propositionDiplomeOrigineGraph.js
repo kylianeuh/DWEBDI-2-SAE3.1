@@ -2,7 +2,7 @@
 const charts = [];
 
 /**
- * Définit les paramètre de la jauge de sélectivité
+ * Définit les paramètre
  * @param {number} L3 - Nombre de L3
  * @param {number} LP3 - Nombre de LP3
  * @param {number} Master - Nombre de Master
@@ -10,14 +10,7 @@ const charts = [];
  * @param {number} Autre - Nombre d'autre
  */
 
-function settingsPropositionDiplomeOrigine(
-  L3,
-  LP3,
-  Master,
-  Ninscrit,
-  Autre,
-  showName = false
-) {
+function settingsPropositionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre, showName = false) {
 
   const isMobile = window.innerWidth < 540;
 
@@ -31,57 +24,57 @@ function settingsPropositionDiplomeOrigine(
     };
   }
 
-    return {
-      color: ["#6200FF", "#7C2BFF", "#B080FF", "#CBABFF", "#E4D4FF"],
-      title: {
-        text: (!isMobile && showName) 
-        ? 'Candidats ayant reçus une proposition' 
+  return {
+    color: ["#6200FF", "#7C2BFF", "#B080FF", "#CBABFF", "#E4D4FF"],
+    title: {
+      text:  !showName 
+        ? 'Candidats ayant reçus une proposition'
         : "Candidats ayant\nreçus une proposition"
-      },
-      tooltip: {
-        trigger: "item",
-      },
-      legend: {
-        bottom: "5%",
-        left: "center",
-      },
-      series: [
-        {
-          name: "Access From",
-          type: "pie",
-          top: showName ? ' ' : '20%',
-          radius: ["40%", "70%"],
-          avoidLabelOverlap: false,
-          itemStyle: {
-            borderRadius: 10,
-            borderColor: "#fff",
-            borderWidth: 2,
-          },
-          label: {
-            show: false,
-            position: "center",
-          },
-          emphasis: {
-            label: {
-              show: true,
-              fontSize: 40,
-              fontWeight: "bold",
-            },
-          },
-          labelLine: {
-            show: false,
-          },
-          data: [
-            { value: L3, name: showName ? "Licence 3" : "" },
-            { value: LP3, name: showName ? "Licence pro 3" : "" },
-            { value: Master, name: showName ? "Master" : "" },
-            { value: Ninscrit, name: showName ? "Non inscrits" : "" },
-            { value: Autre, name: showName ? "Autre" : "" },
-          ],
+    },
+    tooltip: {
+      trigger: "item",
+    },
+    legend: {
+      bottom: "5%",
+      left: "center",
+    },
+    series: [
+      {
+        name: "Access From",
+        type: "pie",
+        top: showName ? ' ' : '20%',
+        radius: ["40%", "70%"],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: "#fff",
+          borderWidth: 2,
         },
-      ],
-    };
-  }
+        label: {
+          show: false,
+          position: "center",
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 40,
+            fontWeight: "bold",
+          },
+        },
+        labelLine: {
+          show: false,
+        },
+        data: [
+          { value: L3, name: showName ? "Licence 3" : "" },
+          { value: LP3, name: showName ? "Licence pro 3" : "" },
+          { value: Master, name: showName ? "Master" : "" },
+          { value: Ninscrit, name: showName ? "Non inscrits" : "" },
+          { value: Autre, name: showName ? "Autre" : "" },
+        ],
+      },
+    ],
+  };
+}
 
 
 // --- Gestionnaire de redimensionnement ---
@@ -89,9 +82,14 @@ function settingsPropositionDiplomeOrigine(
 window.addEventListener("resize", function () {
   charts.forEach((chart) => {
     try {
-      // Vérifie si le conteneur est toujours dans le DOM avant de resize
       if (document.body.contains(chart.getDom())) {
         chart.resize();
+
+        // RECUPERATION DES DONNÉES SAUVEGARDÉES
+        if (chart._dataStore) {
+          const { L3, LP3, Master, Ninscrit, Autre, showName } = chart._dataStore;
+          chart.setOption(settingsComparaisonSexe(L3, LP3, Master, Ninscrit, Autre, showName), true);
+        }
       }
     } catch (e) {
       console.warn("Erreur lors du redimensionnement du graphique", e);
@@ -123,6 +121,7 @@ function create(selector, L3, LP3, Master, Ninscrit, Autre, showName = false) {
   }
 
   myChart = echarts.init(dom);
+  myChart._dataStore = { L3, LP3, Master, Ninscrit, Autre, showName };
   myChart.setOption(
     settingsPropositionDiplomeOrigine(
       L3,

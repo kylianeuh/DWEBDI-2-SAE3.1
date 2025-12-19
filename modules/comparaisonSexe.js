@@ -69,25 +69,24 @@ function settingsComparaisonSexe(Homme, Femme, showName = false) {
   };
 }
 
-  // --- Gestionnaire de redimensionnement ---
-  window.addEventListener("resize", function () {
-    charts.forEach((chart) => {
-      try {
-        if (document.body.contains(chart.getDom())) {
-          chart.resize();
+// --- Gestionnaire de redimensionnement ---
+window.addEventListener("resize", function () {
+  charts.forEach((chart) => {
+    try {
+      if (document.body.contains(chart.getDom())) {
+        chart.resize();
 
-          // RECUPERATION DES DONNÉES SAUVEGARDÉES
-          if (chart._dataStore) {
-            const { Homme, Femme, showName } = chart._dataStore;
-            // On force la mise à jour complète avec 'true' pour nettoyer l'ancien affichage
-            chart.setOption(settingsComparaisonSexe(Homme, Femme, showName), true);
-          }
+        // RECUPERATION DES DONNÉES SAUVEGARDÉES
+        if (chart._dataStore) {
+          const { Homme, Femme, showName } = chart._dataStore;
+          chart.setOption(settingsComparaisonSexe(Homme, Femme, showName), true);
         }
-      } catch (e) {
-        console.warn("Erreur resize", e);
       }
-    });
+    } catch (e) {
+      console.warn("Erreur resize", e);
+    }
   });
+});
 
 /**
  * Fonction générique pour initialiser un graphique sur un sélecteur donné
