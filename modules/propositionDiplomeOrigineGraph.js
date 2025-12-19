@@ -149,6 +149,7 @@ export function updatePropositionDiplomeOrigine(
 /**
  * Crée le graph dans la modale
  */
+
 export function updatePropositionDiplomeOrigineModal(
   L3,
   LP3,
