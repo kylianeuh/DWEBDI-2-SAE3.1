@@ -161,11 +161,9 @@ function pruneCache() {
 export async function getOrFetch(key, fetchPromise, ttl = 60) {
     const cachedData = getCache(key);
     if (cachedData !== null) {
-        console.log(`[CACHE] Hit pour : ${key}`);
         return cachedData;
     }
 
-    console.log(`[RESEAU] Fetch pour : ${key}`);
     try {
         const data = await fetchPromise();
         if (data) {

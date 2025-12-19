@@ -55,7 +55,6 @@ export async function getAllDataJson(ifc) {
 
     // Si pas de données en cache, on charge le fichier
     if (!dataList) {
-        console.log("Chargement de data.json (réseau)...");
         try {
             const response = await fetch('../src/data.json');
             if (!response.ok) throw new Error("Erreur chargement data.json");
@@ -68,8 +67,6 @@ export async function getAllDataJson(ifc) {
             console.error("Erreur getLocalDescription :", error);
             return null;
         }
-    } else {
-        console.log("Chargement de data.json (depuis le cache).");
     }
 
     const found = dataList.find(item => item.ifc === ifc);
@@ -106,7 +103,6 @@ export async function getFullDataJson() {
     let dataList = loadStaticData(); // On tente de charger depuis le cache
 
     if (!dataList) {
-        console.log("Chargement initial de data.json...");
         try {
             const response = await fetch('../src/data.json');
             if (!response.ok) throw new Error("Erreur chargement data.json");
