@@ -37,6 +37,30 @@ function settingsRepartitionDiplomeOrigine(
     }))
     .filter((item) => item.value > 0);
 
+  if (processedData.length === 0) {
+    return {
+      title: {
+        text: show_name
+          ? "Origine des candidats acceptés"
+          : "Origine des candidats\nacceptés",
+        left: "center",
+      },
+      graphic: [
+        {
+          type: "text",
+          left: "center",
+          top: "middle",
+          style: {
+            text: "Aucune donnée disponible",
+            fill: "#999",
+            fontSize: 16,
+            fontWeight: "bold",
+          },
+        },
+      ],
+    };
+  }
+
   return {
     title: {
       text: show_name
@@ -48,7 +72,7 @@ function settingsRepartitionDiplomeOrigine(
     },
     yAxis: {
       type: "category",
-      data: processedData.map(item => item.name),
+      data: processedData.map((item) => item.name),
       inverse: true,
       animationDuration: 300,
       animationDurationUpdate: 300,
