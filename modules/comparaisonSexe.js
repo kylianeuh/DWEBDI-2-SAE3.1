@@ -25,8 +25,8 @@ function settingsComparaisonSexe(Homme, Femme, showName = false) {
     color: ["#7C2BFF", "#CBABFF"],
     title: {
       text: "Genre des candidats",
-      left: showName ? "center" : "left",
-      top: showName ? "5%" : "top"
+      left: "center",
+      top: "5%"
     },
     tooltip: {
       trigger: "item",

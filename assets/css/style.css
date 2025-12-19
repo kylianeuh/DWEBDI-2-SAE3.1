@@ -229,7 +229,6 @@ button {
 .filter__list {
    display: flex;
    flex-direction: column;
-   align-items: left;
    display: none;
 }
 
