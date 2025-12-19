@@ -8,7 +8,6 @@ const charts = [];
  */
 
 function settingsComparaisonSexe(Homme, Femme, showName = false) {
-
   const isMobile = window.innerWidth < 540;
 
   if (isMobile && !showName) {
@@ -17,7 +16,7 @@ function settingsComparaisonSexe(Homme, Femme, showName = false) {
         text: "Genre des\ncandidats",
         left: "center",
         top: "middle",
-      }
+      },
     };
   }
 
@@ -26,19 +25,17 @@ function settingsComparaisonSexe(Homme, Femme, showName = false) {
     title: {
       text: "Genre des candidats",
       left: "center",
-      top: "5%"
+      top: "5%",
     },
     tooltip: {
       trigger: "item",
     },
-    legend: showName
-      ? { bottom: "5%", left: "center" }
-      : { show: false },
+    legend: showName ? { bottom: "5%", left: "center" } : { show: false },
     series: [
       {
         name: "Access From",
         type: "pie",
-        top: showName ? ' ' : '10%',
+        top: showName ? " " : "10%",
         radius: ["40%", "70%"],
         avoidLabelOverlap: false,
         itemStyle: {
@@ -79,7 +76,10 @@ window.addEventListener("resize", function () {
         // RECUPERATION DES DONNÉES SAUVEGARDÉES
         if (chart._dataStore) {
           const { Homme, Femme, showName } = chart._dataStore;
-          chart.setOption(settingsComparaisonSexe(Homme, Femme, showName), true);
+          chart.setOption(
+            settingsComparaisonSexe(Homme, Femme, showName),
+            true
+          );
         }
       }
     } catch (e) {
@@ -111,6 +111,18 @@ function create(selector, Homme, Femme, showName = false) {
   myChart = echarts.init(dom);
   myChart._dataStore = { Homme, Femme, showName };
   myChart.setOption(settingsComparaisonSexe(Homme, Femme, showName));
+
+  // Ici on ajoute l'écouteur click pour gérer les labels
+  myChart.on("click", function (params) {
+    // Masque tous les labels
+    myChart.dispatchAction({ type: "downplay", seriesIndex: 0 });
+    // Montre seulement le label cliqué
+    myChart.dispatchAction({
+      type: "highlight",
+      seriesIndex: 0,
+      dataIndex: params.dataIndex,
+    });
+  });
 
   // Ajoute le graphique au tableau de suivi pour le resize global
   if (!charts.find((c) => c.getDom() === dom)) {

@@ -10,8 +10,14 @@ const charts = [];
  * @param {number} Autre - Nombre d'autre
  */
 
-function settingsPropositionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre, showName = false) {
-
+function settingsPropositionDiplomeOrigine(
+  L3,
+  LP3,
+  Master,
+  Ninscrit,
+  Autre,
+  showName = false
+) {
   const isMobile = window.innerWidth < 540;
 
   if (isMobile && !showName) {
@@ -20,16 +26,16 @@ function settingsPropositionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre, sho
         text: "Candidats\nayant reçus\nune proposition",
         left: "center",
         top: "middle",
-      }
+      },
     };
   }
 
   return {
     color: ["#6200FF", "#7C2BFF", "#B080FF", "#CBABFF", "#E4D4FF"],
     title: {
-      text:  !showName 
-        ? 'Candidats ayant reçus une proposition'
-        : "Candidats ayant\nreçus une proposition"
+      text: !showName
+        ? "Candidats ayant reçus une proposition"
+        : "Candidats ayant\nreçus une proposition",
     },
     tooltip: {
       trigger: "item",
@@ -42,7 +48,7 @@ function settingsPropositionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre, sho
       {
         name: "Access From",
         type: "pie",
-        top: showName ? ' ' : '20%',
+        top: showName ? " " : "20%",
         radius: ["40%", "70%"],
         avoidLabelOverlap: false,
         itemStyle: {
@@ -76,7 +82,6 @@ function settingsPropositionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre, sho
   };
 }
 
-
 // --- Gestionnaire de redimensionnement ---
 
 window.addEventListener("resize", function () {
@@ -87,8 +92,12 @@ window.addEventListener("resize", function () {
 
         // RECUPERATION DES DONNÉES SAUVEGARDÉES
         if (chart._dataStore) {
-          const { L3, LP3, Master, Ninscrit, Autre, showName } = chart._dataStore;
-          chart.setOption(settingsComparaisonSexe(L3, LP3, Master, Ninscrit, Autre, showName), true);
+          const { L3, LP3, Master, Ninscrit, Autre, showName } =
+            chart._dataStore;
+          chart.setOption(
+            settingsComparaisonSexe(L3, LP3, Master, Ninscrit, Autre, showName),
+            true
+          );
         }
       }
     } catch (e) {
@@ -132,6 +141,18 @@ function create(selector, L3, LP3, Master, Ninscrit, Autre, showName = false) {
       showName
     )
   );
+
+  // Ici on ajoute l'écouteur click pour gérer les labels
+  myChart.on("click", function (params) {
+    // Masque tous les labels
+    myChart.dispatchAction({ type: "downplay", seriesIndex: 0 });
+    // Montre seulement le label cliqué
+    myChart.dispatchAction({
+      type: "highlight",
+      seriesIndex: 0,
+      dataIndex: params.dataIndex,
+    });
+  });
 
   // Ajoute le graphique au tableau de suivi pour le resize global
   if (!charts.find((c) => c.getDom() === dom)) {
