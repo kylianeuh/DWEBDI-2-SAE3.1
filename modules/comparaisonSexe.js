@@ -9,6 +9,7 @@ const charts = [];
 
 function settingsComparaisonSexe(Homme, Femme, showName = false) {
   return {
+    color: ["#7C2BFF", "#CBABFF"],
     title: {
       text: "Genre des candidats",
     },

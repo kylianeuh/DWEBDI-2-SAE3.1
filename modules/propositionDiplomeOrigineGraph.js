@@ -19,6 +19,7 @@ function settingsPropositionDiplomeOrigine(
   showName = false
 ) {
   return {
+    color: ["#6200FF", "#7C2BFF", "#B080FF", "#CBABFF", "#E4D4FF"],
     title: {
       text: "Diplome d'origine\ndes candidats acceptés",
     },

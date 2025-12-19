@@ -11,6 +11,7 @@ const charts = [];
 function settingsProcessusSelection(can, prop, prop_accept, show_name) {
 
     return {
+        color: ["#6200FF", "#9654FF", "#E4D4FF"],
         title: {
             text: 'Processus de selection'
         },

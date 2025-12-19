@@ -26,7 +26,7 @@ function settingsTauxSelectivite(taux, showName = true) {
         progress: {
           show: showName,
           width: 18,
-          itemStyle: { color: "#5470C6" },
+          itemStyle: { color: "#7C2BFF" },
         },
         axisLine: { show: showName, lineStyle: { width: 18 } },
         axisTick: { show: showName },
@@ -46,6 +46,7 @@ function settingsTauxSelectivite(taux, showName = true) {
           fontSize: 40,
           fontWeight: "bold",
           formatter: "{value}%",
+          color: "#7C2BFF",
           offsetCenter: showName ? [0, "-10%"] : [0, "-30%"],
         },
         data: [{ value: taux }],
