@@ -1,12 +1,8 @@
-# 🎓 Masterz - Dashboard d'Orientation Master
-
-![Statut](https://img.shields.io/badge/Status-Prototype-orange)
-![Version](https://img.shields.io/badge/Version-1.0.0-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
+# 🎓 Masterz
 
 **Masterz** est une application web de visualisation de données (Data Visualization) destinée aux étudiants. Elle permet d'obtenir rapidement des indicateurs clés sur les formations de Master en France (sélectivité, insertion professionnelle, salaires) en agrégeant des données publiques.
 
-Ce projet a été réalisé dans le cadre de la **SAE 303** (Conception de services et produits multimédias).
+Ce projet a été réalisé dans le cadre de la **SAE 301-303**.
 
 ## 📑 Table des Matières
 - [Fonctionnalités](#-fonctionnalités)
@@ -14,27 +10,24 @@ Ce projet a été réalisé dans le cadre de la **SAE 303** (Conception de servi
 - [Architecture des Données](#-architecture-des-données)
 - [Installation et Démarrage](#-installation-et-démarrage)
 - [Structure du Projet](#-structure-du-projet)
-- [Auteurs](#-auteurs)
 
 ## ✨ Fonctionnalités
 
 L'application récupère et croise des données pour afficher :
 
 * **Fiche d'identité du Master :** Nom, établissement, ville, mode (alternance/initial).
-* **Jauges de Performance (ECharts) :**
-    * 📉 **Taux d'accès :** Pourcentage d'admis par rapport aux candidats.
-    * 👔 **Taux d'emploi cadre :** Proportion de diplômés occupant un poste de cadre.
-* **Répartition des Origines :** Graphique "Donut" montrant la provenance des étudiants (Licence Générale, Pro, Master, Autre).
-* **Données Financières :** Comparaison du salaire médian en sortie de formation vs la moyenne du domaine (via CSV).
-* **Localisation :** Carte interactive (OpenStreetMap/Google) et informations de contact.
-* **Comparateur :** Suggestions de formations similaires (Interface UI).
+* **Taux d'accès (ECharts):** Pourcentage d'admis par rapport aux candidats.
+* **Taux d'emploi cadre (ECharts):** Proportion de diplômés occupant un poste de cadre.
+* **Répartition des diplomes d'origines (ECharts):** Graphique "Donut" montrant la provenance des étudiants (Licence Générale, Pro, Master, Autre).
+* **Localisation :** Carte interactive (Google).
+* **Contact :** Informations de contact (mail et site web).
 
 ## 🛠 Technologies Utilisées
 
 * **HTML5 / CSS3 :** Structure sémantique et design responsive (Mobile First).
 * **JavaScript (ES6+) :**
     * Utilisation de **Modules ES** (`import`/`export`) pour structurer le code.
-    * **Fetch API** pour les appels asynchrones (API OpenData & fichiers locaux).
+    * **Fetch API** pour les appels asynchrones (API OpenData & fichiers locaux (CSV et JSON)).
     * **LocalStorage** pour la mise en cache des configurations.
 * **[Apache ECharts](https://echarts.apache.org/) :** Librairie de visualisation de données interactive.
 
@@ -59,13 +52,13 @@ L'application s'appuie sur une architecture hybride :
 Vous devez utiliser un **serveur local**.
 
 ### Prérequis
-* Un navigateur moderne.
+* Un navigateur.
 * Une extension type **Live Server** (VS Code) ou Python/Node.js.
 
 ### Méthode recommandée (VS Code)
 1.  Clonez le projet :
     ```bash
-    git clone [https://github.com/votre-user/masterz-sae303.git](https://github.com/votre-user/masterz-sae303.git)
+    git clone [https://github.com/kylianeuh/DWEBDI-2-SAE3.1.git](https://github.com/kylianeuh/DWEBDI-2-SAE3.1.git)
     ```
 2.  Ouvrez le dossier dans VS Code.
 3.  Faites un clic droit sur `index.html` > **Open with Live Server**.
@@ -74,9 +67,9 @@ Vous devez utiliser un **serveur local**.
 ```bash
 cd chemin/vers/le/projet
 python -m http.server 8000
-# Ouvrez http://localhost:8000 dans votre navigateur
+Ouvrez http://localhost:8000 dans votre navigateur
 
-### Structure du projet
+## Structure du Projet
 
 /
 ├── index.html              # Point d'entrée de l'application

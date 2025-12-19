@@ -378,7 +378,17 @@ button {
 #diplomeOrigine,
 #diplomeOrigine-modal,
 #salaire,
-#salaire-modal {
+#salaire-modal,
+#comparaisonSexe,
+#comparaisonSexe-modal,
+#propositionDiplomeOrigine,
+#propositionDiplomeOrigine-modal,
+#processusSelection,
+#processusSelection-modal,
+#repartitionDiplomeOrigine,
+#repartitionDiplomeOrigine-modal,
+#repartitionOrigineAcademique,
+#repartitionOrigineAcademique-modal {
    width: 100%;
    height: 100%;
 }

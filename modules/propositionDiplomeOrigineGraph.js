@@ -10,39 +10,50 @@ const charts = [];
  * @param {number} Autre - Nombre d'autre
  */
 
-function settingsRepartitionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre) {
+function settingsPropositionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre) {
 
     return {
-        xAxis: {
-                max: 'dataMax'
-            },
-            yAxis: {
-                type: 'category',
-                data: ['Licence 3', 'Licence Pro 3', 'Master','Non inscrits',  'Autre'],
-                inverse: true,
-                animationDuration: 300,
-                animationDurationUpdate: 300,
-            },
-            series: [
-                {
-                    realtimeSort: true,
-                    name: 'Origine Académique 2024',
-                    type: 'bar',
-                    data: [L3, LP3, Master, Ninscrit, Autre],
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            top: '5%',
+            left: 'center'
+        },
+        series: [
+            {
+                name: 'Access From',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                avoidLabelOverlap: false,
+                itemStyle: {
+                    borderRadius: 10,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                },
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
                     label: {
                         show: true,
-                        position: 'right',
-                        valueAnimation: true
+                        fontSize: 40,
+                        fontWeight: 'bold'
                     }
-                }
-            ],
-            legend: {
-                show: true
-            },
-            animationDuration: 0,
-            animationDurationUpdate: 3000,
-            animationEasing: 'linear',
-            animationEasingUpdate: 'linear'
+                },
+                labelLine: {
+                    show: false
+                },
+                data: [
+                    { value: L3, name: 'Licence 3' },
+                    { value: LP3, name: 'Licence pro 3' },
+                    { value: Master, name: 'Master' },
+                    { value: Ninscrit, name: 'Non inscrits'},
+                    { value: Autre, name: 'Autre' },
+                ]
+            }
+        ]
     };
 }
 
@@ -85,7 +96,7 @@ function create(selector, L3, LP3, Master, Ninscrit, Autre) {
     }
 
     myChart = echarts.init(dom);
-    myChart.setOption(settingsRepartitionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre))
+    myChart.setOption(settingsPropositionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre))
 
     // Ajoute le graphique au tableau de suivi pour le resize global
     if (!charts.find(c => c.getDom() === dom)) {
@@ -98,13 +109,13 @@ function create(selector, L3, LP3, Master, Ninscrit, Autre) {
 /**
  * Crée le graph principal
  */
-export function updateRepartitionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre) {
-    return create(".viz #repartitionDiplomeOrigine", L3, LP3, Master, Ninscrit, Autre);
+export function updatePropositionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre) {
+    return create(".viz #propositionDiplomeOrigine", L3, LP3, Master, Ninscrit, Autre);
 }
 
 /**
  * Crée le graph dans la modale
  */
-export function updateRepartitionDiplomeOrigineModal(L3, LP3, Master, Ninscrit, Autre) {
-    return create(".viz #repartitionDiplomeOrigine-modal", L3, LP3, Master, Ninscrit, Autre);
+export function updatePropositionDiplomeOrigineModal(L3, LP3, Master, Ninscrit, Autre) {
+    return create(".viz #propositionDiplomeOrigine-modal", L3, LP3, Master, Ninscrit, Autre);
 }

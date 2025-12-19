@@ -1,18 +1,20 @@
 import { saveStaticData, loadStaticData } from './cacheManagement.js';
 
-const API_URL_24 = "https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/fr-esr-mon_master/records";
-const API_URL_23 = "https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/fr-esr-mon_master_2023/records";
+const API_URL_FORMATION = "https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/formations";
+const API_URL_MENTION = 'https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/mentions';
+const API_URL_STATS_SEARCH = "https://la-lab4ce.univ-lemans.fr/masters-stats/api/rest/stats/search";
 
 /**
  * Récupère une formation unique par son IFC
  * @param {string} ifc - L'identifiant de la formation
  * @returns {Promise<Object|null>} L'objet formation ou null si non trouvé
  */
+
 export async function getFormationByIfc(ifc) {
     try {
-        // Utilisation de encodeURIComponent pour sécuriser l'injection de la variable
-        const encodedIfc = encodeURIComponent(`"${ifc}"`);
-        const url = `${API_URL_24}?where=ifc=${encodedIfc}&limit=1`;
+        const encodedIfc = encodeURIComponent(`${ifc}`);
+        const url = `${API_URL_FORMATION}/${encodedIfc}`;
+        console.log(url);
 
         const response = await fetch(url);
 
@@ -20,16 +22,46 @@ export async function getFormationByIfc(ifc) {
             throw new Error(`Erreur HTTP ${response.status}`);
         }
 
-        const data = await response.json();
+        const data_formation = await response.json();
         
-        if (!data.results || data.results.length === 0) {
+        if (Object.keys(data_formation).length === 0 || !data_formation.ifc) { 
+            console.log("Absence de data pour les formations");
             return null;
         }
-
-        return data.results[0];
+        return data_formation;
 
     } catch (error) {
         console.error("Erreur dans getFormationByIfc:", error);
+        throw error;
+    }
+}
+
+/**
+ * Récupère les mentions
+ * @returns {Promise<Object|null>} L'objet formation ou null si non trouvé
+ */
+
+export async function getMention(idRecherche) {
+    try {
+        const response = await fetch(API_URL_MENTION);
+
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP ${response.status}`);
+        }
+
+        const data_mention = await response.json();
+
+        if (!Array.isArray(data_mention) || data_mention.length === 0) { 
+            console.log("Absence de data pour les mentions");
+            return null;
+        }
+
+    const mention = data_mention.find(m => m.secDiscId === idRecherche);
+    
+    return mention ? mention.nom : null;
+
+    } catch (error) {
+        console.error("Erreur dans getMention :", error);
         throw error;
     }
 }
@@ -138,4 +170,37 @@ export async function getAllDataJson(ifc) {
 
     const found = dataList.find(item => item.ifc === ifc);
     return found || null;
+}
+
+/**
+ * Recherche des statistiques (Candidatures ou Insertion Pro) via critères
+ * @param {Object} filters - Objet contenant les filtres (etablissementIds, anneeMin, etc.)
+ * @param {Object} harvest - Objet définissant les champs à récupérer (insertionProDetails, etc.)
+ */
+
+export async function searchStats(filters, harvest) {
+    try {
+        const payload = {
+            filters: filters,
+            harvest: harvest
+        };
+
+        const response = await fetch(API_URL_STATS_SEARCH, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP ${response.status} lors de la recherche stats`);
+        }
+
+        return await response.json();
+
+    } catch (error) {
+        console.error("Erreur dans searchStats :", error);
+        return null;
+    }
 }

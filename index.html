@@ -7,6 +7,9 @@
    <!-- ========== GraphViz ========== -->
    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
    <script type="module" src="./modules/orchestrator.js"></script>
+   <!-- ========== Maps ========== -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@latest/ol.css" />
+   <script src="https://cdn.jsdelivr.net/npm/ol@latest/dist/ol.js"></script>
    <!-- ========== Google ========== -->
    <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
@@ -180,25 +183,25 @@
                </figure>
 
                <figure class="gallery viz">
-                  <div id="tauxCadre"></div>
+                  <div id="comparaisonSexe"></div>
                </figure>
 
                <figure class="gallery viz">
-                 <div id="diplomeOrigine"></div>
+                  <div id="propositionDiplomeOrigine"></div>
                </figure>
 
                <figure class="gallery viz">
-                  <div id="salaire"></div>
+                  <div id="repartitionOrigineAcademique"></div>
+               </figure>
+               
+               <figure class="gallery viz">
+                  <div id="processusSelection"></div>
                </figure>
 
-               <figure class="gallery">
-                  <img class="gallery__img" src="https://media1.tenor.com/m/VbbSQLP4g0cAAAAd/neuron-activation.gif"
-                     alt="">
+               <figure class="gallery viz">
+                  <div id="repartitionDiplomeOrigine"></div>
                </figure>
 
-               <figure class="gallery">
-                  <img class="gallery__img" src="https://media1.tenor.com/m/YgrLNrQ522sAAAAd/rat-dance.gif" alt="">
-               </figure>
             </div>
 
             <div class="modal__container">
@@ -208,10 +211,13 @@
                         close
                      </span>
                   </button>
-
                   <div id="tauxSelectivite-modal"></div>
+                  <div id="comparaisonSexe-modal"></div>
                   <div id="tauxCadre-modal"></div>
-                  <div id="diplomeOrigine-modal"></div>
+                  <div id="repartitionOrigineAcademique-modal"></div>
+                  <div id="processusSelection-modal"></div>
+                  <div id="propositionDiplomeOrigine-modal"></div>
+                  <div id="repartitionDiplomeOrigine-modal"></div>
                   <div id="salaire-modal"></div>
                </figure>
             </div>
@@ -222,8 +228,8 @@
             <h2 class="section__title">Informations complémentaires</h2>
 
             <div class="container__map">
-               <iframe class="section__map" id="mapEtab"
-                  src="https://www.openstreetmap.org/export/embed.html?bbox=2.3731970787048344%2C48.88611663941576%2C2.375530600547791%2C48.88764751410974&amp;layer=mapnik"></iframe>
+               <div id="map" class="section__map"
+                  style="height: 400px; width: 100%; border-radius: 12px; overflow: hidden;"></div>
                <div class="section__details">
                   <p class="section__detail">
                      <span class="material-symbols-outlined">

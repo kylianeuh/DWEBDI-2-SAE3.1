@@ -46,6 +46,29 @@ export function loadProportionCadreSettings() {
   }
 }
 
+const SEXECOMPARAISON_SETTINGS_KEY = "tauxCadreSettings";
+
+export function saveComparaisonSexe(settings) {
+    if (!myStorage) {
+        return;
+    }
+
+  myStorage.setItem(SEXECOMPARAISON_SETTINGS_KEY, JSON.stringify(settings));
+}
+
+export function loadComparaisonSexe() {
+    if (!myStorage) {
+        return;
+    }
+
+  try {
+    return JSON.parse(myStorage.getItem(SEXECOMPARAISON_SETTINGS_KEY));
+  } catch (error) {
+    console.warn("Erreur de donnees de storage");
+    return null;
+  }
+}
+
 const DATA_JSON_KEY = "staticDataJson";
 
 /**

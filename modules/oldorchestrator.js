@@ -1,10 +1,6 @@
 import { getFormationByIfc, getMention, loadAndParseCSV, getAllDataJson, searchStats } from './RESTManagement.js';
 import { updateTauxGraph, updateTauxGraphModal } from './tauxSelectiviteGraph.js';
-import { updateComparaisonSexe, updateComparaisonSexeModal } from './comparaisonSexe.js';
 import { updateCadreGraph, updateCadreGraphModal } from './proportionCadreGraph.js';
-import { updateProcessusSelection, updateProcessusSelectionModal } from './processusSelection.js';
-import { updateRepartitionOrigineAcademique, updateRepartitionOrigineAcademiqueModal } from './repartitionOrigineAcademique.js';
-import { updatePropositionDiplomeOrigine, updatePropositionDiplomeOrigineModal } from './propositionDiplomeOrigineGraph.js';
 import { updateRepartitionDiplomeOrigine, updateRepartitionDiplomeOrigineModal } from './repartitionDiplomeOrigineGraph.js';
 import { updateSalaire, updateSalaireModal } from './comparaisonSalaireGraph.js';
 import { updateMap } from './mapManagement.js';
@@ -28,9 +24,9 @@ export async function afficherDetailsFormation(ifc) {
         console.log("Données reçues :", data_formation);
 
         // Gestion du nom du parcours
-        const idSecDiscipline = data_formation?.secDiscId;
+        const idMention = data_formation?.secDiscId;
 
-        const mention = await getMention(idSecDiscipline);
+        const mention = await getMention(idMention);
 
         if (!mention) {
             console.warn("Aucune mentions trouvéees");
@@ -75,9 +71,10 @@ export async function afficherDetailsFormation(ifc) {
         const lat = parseFloat(data_formation.latitude);
         const lon = parseFloat(data_formation.longitude);
         const etablissement = localisation.split('-')[0].trim();
+        console.log(etablissement);
 
         if (!isNaN(lat) && !isNaN(lon)) {
-            console.log(`Mise à jour coordonnées : ${lat}, ${lon}`);
+            console.log(`Mise à jour care : ${lat}, ${lon}`);
             updateMap(lat, lon, etablissement, localData.site);
         } else {
             console.warn("Coordonnées GPS non valides.");
@@ -138,12 +135,12 @@ export async function afficherDetailsFormation(ifc) {
         }
 
         // =================================================================
-        // GESTION REQUETE SEARCH [candidatures]
+        // GESTION REQUETE SEARCH
         // =================================================================
 
         const uai = data_formation.etabUai;
-        console.log(`Recherche Stats Insertion pour UAI: ${uai}, ifc : ${ifc} et mention : ${idSecDiscipline}`);
-
+        console.log(`Recherche Stats Insertion pour UAI: ${uai} et ifc : ${ifc}`);
+ 
         if (uai && ifc) {
             const filters = {
                 etablissementIds: [uai],
@@ -151,171 +148,178 @@ export async function afficherDetailsFormation(ifc) {
             };
 
             const harvest = {
-                typeStats: "candidatures",
-                candidatureDetails: ["general", "experience", "origine"]
+                typeStats: "all",
+                "candidatureDetails": ["general"],
+                'insertionProDetails': ["emplois", "general"],
+
             };
 
             const statsData = await searchStats(filters, harvest);
-            console.log("Stats Insertion reçues :", statsData);
 
-            // --- A. Gestion du taux de sélectivité ---
+            if 
+            // --- A. Gestion du taux d'admission ---
 
-            if (statsData.candidatures[0]["general"]) {
+            if (statsData && statsData.insertionsPro && statsData.insertionsPro.length > 0) {
+                // On prend la donnée la plus récente (la dernière du tableau ou trier par année)
+                // L'API renvoie un tableau, prenons le dernier élément qui est souvent le plus récent
+                const latestStat = statsData.insertionsPro.sort((a, b) => b.anneeCollecte - a.anneeCollecte)[0];
 
-                const nPropTotal = statsData.candidatures[0]["general"]["prop"];
-                console.log(`Nombre de propositions : ${nPropTotal}`);
-                const nCan = statsData.candidatures[0]["general"]["nb"];
-                console.log(`Nombre de candidatures : ${nCan}`);
+                console.log("Stats Insertion reçues :", latestStat);
 
-                let tauxCalcule = 0;
+                // --- A. Gestion du taux d'admission ---
 
-                if (nCan > 0) {
-                    tauxCalcule = parseFloat(((nPropTotal / nCan) * 100).toFixed(1));
+                // --- A. SALAIRE ---
+                // Le modèle indique : salaire -> netMedianTempsPlein [cite: 556]
+                let salaireMedian = 0;
+                if (latestStat.salaire && latestStat.salaire.netMedianTempsPlein) {
+                    salaireMedian = latestStat.salaire.netMedianTempsPlein;
                 }
 
-                console.log(`Calcul Taux : (${nPropTotal} / ${nCan}) * 100 = ${tauxCalcule}%`);
+                // Pour le salaire moyen de la discipline, on pourrait faire une 2ème requête API 
+                // sans le filtre "etablissementIds" pour avoir la moyenne nationale du secteur.
+                // Pour l'instant, disons qu'on compare à une valeur fixe ou calculée autrement.
+                // (Exemple simplifié ici : on garde votre logique précédente ou on met une valeur par défaut)
+                const salaireMoyenneDiscipline = 2200; // Valeur arbitraire ou à aller chercher via un 2ème appel API
 
-                // Création des graphiques
-                updateTauxGraph(tauxCalcule);
-                updateTauxGraphModal(tauxCalcule);
+                updateSalaire(salaireMedian, salaireMoyenneDiscipline);
+                updateSalaireModal(salaireMedian, salaireMoyenneDiscipline);
+
+
+                // --- B. TAUX CADRE ---
+                // Le modèle indique : emplois -> cadre (nombre) et general -> nbReponses [cite: 462, 549]
+                // Attention : 'cadre' est un nombre absolu, pas un pourcentage.
+
+                let tauxCadre = 0;
+                if (latestStat.emplois && latestStat.general && latestStat.general.nbResponses > 0) {
+                    const nbCadres = latestStat.emplois.cadre || 0;
+                    const nbReponses = latestStat.general.nbResponses || 1; // Eviter division par 0
+
+                    // Calcul du pourcentage
+                    tauxCadre = parseFloat(((nbCadres / nbReponses) * 100).toFixed(1));
+                }
+
+                updateCadreGraph(tauxCadre);
+                updateCadreGraphModal(tauxCadre);
+
             } else {
-                console.warn("Aucune statistique pour candidatures[général]");
-                updateTauxGraph(0, 0);
-                updateTauxGraphModal(0);
+                console.warn("Aucune statistique d'insertion trouvée pour ces critères.");
+                updateSalaire(0, 0);
+                updateCadreGraph(0);
             }
 
-            // --- B. Répartition homme/femme ---
-
-            if (statsData.candidatures[0]["general"]) {
-
-                const nFemmes = statsData.candidatures[0]["general"]["nbFemmes"];
-                console.log(`Nombre de femmes : ${nFemmes}`);
-                const nHommes = (statsData.candidatures[0]["general"]["nb"] - nFemmes);
-                console.log(`Nombre d'hommes : ${nHommes}`);
-
-                // Création des graphiques
-                updateComparaisonSexe(nHommes, nFemmes);
-                updateComparaisonSexeModal(nHommes, nFemmes);
-            } else {
-                console.warn("Aucune statistique pour candidatures[général]");
-                updateComparaisonSexe(0, 0);
-                updateComparaisonSexeModal(0, 0);
-            }
-
-            // --- C. Répartition des diplomes en propositions ---
-
-            if (statsData.candidatures[0]["general"] && statsData.candidatures[0]["experience"]) {
-
-                const L3 = statsData.candidatures[0]["experience"]["lg3"]['prop'];
-                console.log(`Candidats issus de LG3 : ${L3}`);
-                const LP3 = statsData.candidatures[0]["experience"]["lp3"]['prop'];
-                console.log(`Candidats issus de LP3 : ${LP3}`);
-                const master = statsData.candidatures[0]["experience"]["master"]['prop'];
-                console.log(`Candidats issus de Master : ${master}`);
-                const ninscrit = statsData.candidatures[0]["experience"]["noninscrit"]['prop'];
-                console.log(`Candidats non inscrit : ${ninscrit}`);
-                const autre = statsData.candidatures[0]["experience"]["autre"]['prop'];
-                console.log(`Candidats issus d'une autre formation : ${autre}`);
-
-                console.log("Répartition :", { L3, LP3, master, ninscrit, autre });
-
-                // Création des graphiques
-                updatePropositionDiplomeOrigine(L3, LP3, master, ninscrit, autre);
-                updatePropositionDiplomeOrigineModal(L3, LP3, master, ninscrit, autre);
-            } else {
-                console.warn("Aucune statistique pour candidatures[général] ou candidatures[experience]");
-                updatePropositionDiplomeOrigine(0, 0, 0, 0, 0);
-                updatePropositionDiplomeOrigineModal(0, 0, 0, 0, 0);
-            }
-
-            // --- D. Répartition origine académique en propositions ---
-
-            if (statsData.candidatures[0]["general"] && statsData.candidatures[0]["origine"]) {
-
-                const mAcademie = statsData.candidatures[0]["origine"]["academie"]['nb'];
-                console.log(`Nombre d'élèves issus de la même académie : ${mAcademie}`);
-                const autreAcademie =statsData.candidatures[0]["general"]["nb"] - mAcademie;
-                console.log(`Nombre d'élèves issus d'une autre académie : ${autreAcademie}`);
-
-                // Création des graphiques
-                updateRepartitionOrigineAcademique(mAcademie, autreAcademie);
-                updateRepartitionOrigineAcademiqueModal(mAcademie, autreAcademie);
-            } else {
-                console.warn("Aucune statistique pour candidatures[général] ou candidatures[origine]");
-                updateRepartitionOrigineAcademique(0, 0);
-                updateRepartitionOrigineAcademiqueModal(0,0);
-            }
-
-            // --- E. Processus de sélection ---
-            if (statsData.candidatures[0]["general"]) {
-
-                const nCan = statsData.candidatures[0]["general"]["nb"];
-                console.log(`Nombre de candidatures : ${nCan}`);
-                const nPropTotal = statsData.candidatures[0]["general"]["prop"];
-                console.log(`Nombre de propositions : ${nPropTotal}`);
-                const nPropAccept = statsData.candidatures[0]["general"]["accept"];
-                console.log(`Nombre d'élèves ayant acceptés une proposition  : ${nPropAccept}`);
-
-                // Création des graphiques
-                updateProcessusSelection(nCan, nPropTotal, nPropAccept);
-                updateProcessusSelectionModal(nCan, nPropTotal, nPropAccept);
-            } else {
-                console.warn("Aucune statistique pour candidatures[général]");
-                updateProcessusSelection(0, 0, 0);
-                updateProcessusSelectionModal(0, 0, 0);
-            }
-
-            // --- F. Répartition des diplomes ---
-
-            if (statsData.candidatures[0]["general"] && statsData.candidatures[0]["origine"]) {
-
-                const L3 = statsData.candidatures[0]["experience"]["lg3"]['accept'];
-                console.log(`Candidats issus de LG3 : ${L3}`);
-                const LP3 = statsData.candidatures[0]["experience"]["lp3"]['accept'];
-                console.log(`Candidats issus de LP3 : ${LP3}`);
-                const master = statsData.candidatures[0]["experience"]["master"]['accept'];
-                console.log(`Candidats issus de Master : ${master}`);
-                const ninscrit = statsData.candidatures[0]["experience"]["noninscrit"]['accept'];
-                console.log(`Candidats non inscrit : ${ninscrit}`);
-                const autre = statsData.candidatures[0]["experience"]["autre"]['accept'];
-                console.log(`Candidats issus d'une autre formation : ${autre}`);
-
-                // Création des graphiques
-                updateRepartitionDiplomeOrigine(L3, LP3, master, ninscrit, autre);
-                updateRepartitionDiplomeOrigineModal(L3, LP3, master, ninscrit, autre);
-            } else {
-                console.warn("Aucune statistique pour candidatures[général] ou candidatures[origine]");
-                updateRepartitionDiplomeOrigine(0, 0);
-                updateRepartitionDiplomeOrigineModal(0,0);
-            }
         } else {
-            console.warn("Données manquantes (UAI ou IFC) pour la recherche stats.");
+            console.warn("Données manquantes (UAI ou SecDiscId) pour la recherche stats.");
         }
 
-        // =================================================================
-        // GESTION REQUETE SEARCH [insertionPro]
-        // =================================================================
+        
 
-         if (uai && idSecDiscipline) {
-            const filters = {
-                etablissementIds: [uai],
-                secteurDisciplinairesIds: [idSecDiscipline]
-            };
+        // Répartition des diplomes
 
-            const harvest = {
-                typeStats: "insertionsPro",
-                insertionProDetails: ["emplois", "salaire", "general"]
+        const L3 = Number(data.n_prop_lg3_total) || 0;
+        const LP3 = Number(data.n_prop_lp3_total) || 0;
+        const master = Number(data.n_prop_master_total) || 0;
+        let autre = nPropTotal - (L3 + LP3 + master);
+        if (autre < 0) autre = 0;
+
+        console.log("Répartition :", { L3, LP3, master, autre });
+
+        // Création des graphiques
+        updateRepartitionDiplomeOrigine(L3, LP3, master, autre);
+        updateRepartitionDiplomeOrigineModal(L3, LP3, master, autre);
+
+        // Comparaison salaire
+
+        // 1. Chargement des données brutes
+        const insertionData = await loadAndParseCSV();
+        console.log(insertionData);
+
+        const response = await fetch('../src/data.json');
+        const responseJson = await response.json();
+
+        // 2. Récupération des infos de la formation actuelle
+        const currentFormationJson = responseJson.find(f => f.ifc === ifc);
+        const currentFormationApi = await getFormationByIfc(ifc);
+
+        if (!currentFormationJson || !currentFormationApi) {
+            console.warn("Impossible de trouver les informations complètes pour cet IFC.");
+            return null;
+        }
+
+        const currentTag = currentFormationJson.tag;
+
+        // 3. Récupération du salaire médian spécifique
+        let salaireMedian = 0;
+
+        if (insertionData[uai]) {
+            salaireMedian = parseFloat(insertionData[uai].salaireMedian.replace(',', '.'));
+            if (isNaN(salaireMedian)) salaireMedian = 0;
+        }
+        // 4. Calcul du Salaire Moyen de la Discipline (Même Tag)
+        // On filtre toutes les formations qui ont le même tag
+        const formationsMemeTag = responseJson.filter(f => f.tag === currentTag);
+
+        let sommeSalaires = 0;
+        let nombreFormationsValides = 0;
+        // On parcourt les formations du même domaine pour récupérer leur UAI via l'API puis leur salaire via le CSV
+        // Utilisation de Promise.all pour paralléliser les requêtes API (plus rapide)
+        await Promise.all(formationsMemeTag.map(async (formation) => {
+            try {
+                const apiData = await getFormationByIfc(formation.ifc);
+                if (apiData) {
+                    const uai = apiData.uai || apiData.etablissement_uai;
+
+                    // On regarde si cet UAI existe dans le CSV
+                    if (insertionData[uai] && insertionData[uai].salaireMedian) {
+                        const salaire = parseFloat(insertionData[uai].salaireMedian.replace(',', '.'));
+
+                        // On ne compte que les vrais chiffres (pas les "ns")
+                        if (!isNaN(salaire) && salaire > 0) {
+                            sommeSalaires += salaire;
+                            nombreFormationsValides++;
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn(`Erreur lors de la récupération pour l'IFC ${formation.ifc}`, e);
             }
+        }));
 
-            const statsData = await searchStats(filters, harvest);
+        // Calcul de la moyenne (ou somme si c'est strictement demandé)
+        const salaireMoyenneDiscipline = nombreFormationsValides > 0 ? Math.round(sommeSalaires / nombreFormationsValides) : 0;
+        updateSalaire(salaireMedian, salaireMoyenneDiscipline);
+        updateSalaireModal(salaireMedian, salaireMoyenneDiscipline);
 
-         } else {
-            console.warn("Données manquantes (UAI ou idSecDiscipline) pour la recherche stats.");
+        // Taux de cadre (depuis le CSV)
+
+        const key = `${uai}`;
+        const stats = insertionData[key];
+
+        if (stats) {
+            console.log(`Données CSV trouvées pour ${key} (Année ${stats.annee}`, stats);
+
+            // Affichage des valeurs réelles
+            const tauxCadreReel = stats.emplois_cadre;
+            const nbReponses = stats.nombre_de_reponses;
+
+            // Formule : (emplois_cadre / nombre_de_reponses) / 100
+            const resultatFormule = parseFloat(((tauxCadreReel / nbReponses) * 100).toFixed(1));
+
+            console.log(`Taux emplois cadre (CSV) : ${tauxCadreReel} \nNombre de réponses (CSV) : ${nbReponses}\nRésultat de la formule (taux/rep)/100 : `);
+
+            // Création des graphiques
+            updateCadreGraph(resultatFormule);
+            updateCadreGraphModal(resultatFormule);
+
+
+        } else {
+            console.warn(`Pas de données dans le CSV pour : ${key}`);
+            updateCadreGraph(0);
+            updateCadreGraphModal(0);
         }
 
     } catch (error) {
         console.error("Erreur dans l'orchestrateur :", error);
-    } 
+    }
 }
 
 /**

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Carte - icônes cliquables</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@latest/ol.css" />
+  <style>
+    html, body { height:100%; margin:0; font-family:Inter,Arial,sans-serif; background:#f6f7f9; }
+    .wrap { max-width:1080px; margin:40px auto; padding:0 16px; }
+    .title { font-size:18px; margin:0 0 12px 4px; color:#111; }
+    #map { height:70vh; border-radius:20px; overflow:hidden; background:#fff; box-shadow:0 12px 40px rgba(0,0,0,0.08); }
+    .badge { position:absolute; right:16px; top:16px; background:#fff; border-radius:999px; padding:8px 12px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1 class="title">Carte épurée — icônes cliquables</h1>
+    <div id="map"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/ol@latest/dist/ol.js"></script>
+  <script>
+    const points = [
+      { lon: 2.3522, lat: 48.8566, name: "Paris", url: "https://www.google.com/search?q=Paris" },
+      { lon: -0.5792, lat: 44.8378, name: "Bordeaux", url: "https://www.google.com/search?q=Bordeaux" },
+      { lon: 4.8357, lat: 45.7640, name: "Lyon", url: "https://www.google.com/search?q=Lyon" },
+      { lon: 5.3698, lat: 43.2965, name: "Marseille", url: "https://www.google.com/search?q=Marseille" }
+    ];
+
+    const baseLight = new ol.layer.Tile({
+      source: new ol.source.XYZ({
+        url: 'https://{a-c}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+        attributions: '© OpenStreetMap, © CARTO'
+      })
+    });
+    const baseDark = new ol.layer.Tile({
+      visible: false,
+      source: new ol.source.XYZ({
+        url: 'https://{a-c}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
+        attributions: '© OpenStreetMap, © CARTO'
+      })
+    });
+
+    // Création des features : n'oublie pas d'ajouter la propriété "url" à la feature
+    const features = points.map(p => {
+      const f = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([p.lon, p.lat])),
+        name: p.name,
+        url: p.url // <--- essentiel : la feature contient maintenant son url
+      });
+
+      f.setStyle([
+        new ol.style.Style({
+          image: new ol.style.Circle({
+            radius: 14,
+            fill: new ol.style.Fill({ color: 'rgba(59,130,246,0.18)' })
+          })
+        }),
+        new ol.style.Style({
+          image: new ol.style.Icon({
+            src: './icone.svg', // vérifie que ce chemin est valide (ou utilise une URL complète)
+            scale: 1,
+            // optionnel : anchor: [0.5, 1] si ton icône pointe vers la base
+          }),
+          text: new ol.style.Text({
+            text: p.name,
+            offsetY: 28,
+            font: '16px Inter, sans-serif',
+            fill: new ol.style.Fill({ color: '#111827' }),
+            stroke: new ol.style.Stroke({ color: '#ffffff', width: 1 })
+          })
+        })
+      ]);
+
+      return f;
+    });
+
+    const vectorLayer = new ol.layer.Vector({
+      source: new ol.source.Vector({ features })
+    });
+
+    const map = new ol.Map({
+      target: 'map',
+      layers: [baseLight, baseDark, vectorLayer],
+      view: new ol.View({
+        center: ol.proj.fromLonLat([2.3522, 46.8]),
+        zoom: 6,
+        minZoom: 3,
+        maxZoom: 19
+      })
+    });
+
+    // Ouvrir le lien au clic : on utilise hitTolerance pour faciliter la sélection
+    map.on('singleclick', function (evt) {
+      // hitTolerance ajoute une marge (px) autour du pixel cliqué pour détecter la feature
+      map.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
+        const url = feature.get('url');
+        if (url) {
+          window.open(url, '_blank');
+        }
+      }, { hitTolerance: 6 }); // 6px de tolérance (ajuste si besoin)
+    });
+
+    // Changer le curseur au survol d'une feature (meilleure UX)
+    map.on('pointermove', function(evt) {
+      const hit = map.hasFeatureAtPixel(evt.pixel, { hitTolerance: 6 });
+      map.getTargetElement().style.cursor = hit ? 'pointer' : '';
+    });
+
+    // Switch clair/sombre
+    document.body.insertAdjacentHTML('beforeend', '<div class="badge">Light</div>');
+    const badge = document.querySelector('.badge');
+    badge.addEventListener('click', () => {
+      const dark = !baseDark.getVisible();
+      baseDark.setVisible(dark);
+      baseLight.setVisible(!dark);
+      badge.textContent = dark ? 'Dark' : 'Light';
+    });
+  </script>
+</body>
+</html>
