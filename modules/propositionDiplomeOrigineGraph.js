@@ -20,7 +20,7 @@ function settingsPropositionDiplomeOrigine(
 ) {
   return {
     title: {
-      text: "Diplome d'origine\ndes candidats acceptés",
+      text: showName ? 'Candidats ayant reçus une proposition' :  "Candidats ayant\nreçus une proposition"
     },
     tooltip: {
       trigger: "item",

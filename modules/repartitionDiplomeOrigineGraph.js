@@ -22,12 +22,31 @@ function settingsRepartitionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre, sho
         }))
         .filter(item => item.value > 0);
 
+    if (processedData.length === 0) {
+        return {
+            title: {
+                text: show_name ? 'Origine des candidats acceptés' : 'Origine des candidats\nacceptés',
+                left: 'center'
+            },
+            graphic: [{
+                type: 'text',
+                left: 'center',
+                top: 'middle',
+                style: {
+                    text: 'Aucune donnée disponible',
+                    fill: '#999',
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                }
+            }]
+        };
+    }
     const filteredCategories = processedData.map(item => item.name);
     const filteredValues = processedData.map(item => item.value);
 
     return {
         title: {
-            text: show_name ? 'Origine des candidats acceptés' :  'Origine des candidats\nacceptés'
+            text: show_name ? 'Origine des candidats acceptés' : 'Origine des candidats\nacceptés'
         },
         xAxis: {
             max: 'dataMax'
