@@ -1,11 +1,10 @@
-import { getFormationByIfc, getMention, loadAndParseCSV, getAllDataJson, searchStats, getFullDataJson } from './RESTManagement.js';
+import { getFormationByIfc, getMention, getAllDataJson, searchStats, getFullDataJson } from './RESTManagement.js';
 import { updateTauxGraph, updateTauxGraphModal } from './tauxSelectiviteGraph.js';
 import { updateComparaisonSexe, updateComparaisonSexeModal } from './comparaisonSexe.js';
 import { updateProcessusSelection, updateProcessusSelectionModal } from './processusSelection.js';
 import { updatePropositionDiplomeOrigine, updatePropositionDiplomeOrigineModal } from './propositionDiplomeOrigineGraph.js';
 import { updateRepartitionDiplomeOrigine, updateRepartitionDiplomeOrigineModal } from './repartitionDiplomeOrigineGraph.js';
 import { updateMap } from './mapManagement.js';
-
 
 export async function afficherDetailsFormation(ifc) {
     try {
@@ -20,8 +19,6 @@ export async function afficherDetailsFormation(ifc) {
             console.warn("Aucune donnée trouvée pour cet IFC");
             return;
         }
-
-        console.log("Données reçues :", data_formation);
 
         // Affichage du logo
 
@@ -57,8 +54,6 @@ export async function afficherDetailsFormation(ifc) {
             console.warn("Aucune mentions trouvéees");
             return;
         }
-
-        console.log("Mention reçue :", mention);
 
 
         const baliseNomParcours = document.getElementById('nomParcours');
@@ -98,7 +93,6 @@ export async function afficherDetailsFormation(ifc) {
         const etablissement = localisation.split('-')[0].trim();
 
         if (!isNaN(lat) && !isNaN(lon)) {
-            console.log(`Mise à jour coordonnées : ${lat}, ${lon}`);
             updateMap(lat, lon, etablissement, localData.site);
         } else {
             console.warn("Coordonnées GPS non valides.");
@@ -163,8 +157,6 @@ export async function afficherDetailsFormation(ifc) {
         // GESTION REQUETE SEARCH [candidatures]
         // =================================================================
 
-        console.log(`Recherche Stats Candidatures pour UAI: ${uai} et ifc : ${ifc}`);
-
         if (uai && ifc) {
             const filters = {
                 etablissementIds: [uai],
@@ -177,24 +169,19 @@ export async function afficherDetailsFormation(ifc) {
             };
 
             const statsData = await searchStats(filters, harvest);
-            console.log("Stats Candidatures reçues :", statsData);
 
             // --- A. Gestion du taux de sélectivité ---
 
             if (statsData.candidatures[0]["general"]) {
 
                 const nPropTotal = statsData.candidatures[0]["general"]["prop"];
-                console.log(`Nombre de propositions : ${nPropTotal}`);
                 const nCan = statsData.candidatures[0]["general"]["nb"];
-                console.log(`Nombre de candidatures : ${nCan}`);
 
                 let tauxCalcule = 0;
 
                 if (nCan > 0) {
                     tauxCalcule = parseFloat(((nPropTotal / nCan) * 100).toFixed(1));
                 }
-
-                console.log(`Calcul Taux : (${nPropTotal} / ${nCan}) * 100 = ${tauxCalcule}%`);
 
                 // Création des graphiques
                 updateTauxGraph(tauxCalcule);
@@ -210,9 +197,7 @@ export async function afficherDetailsFormation(ifc) {
             if (statsData.candidatures[0]["general"]) {
 
                 const nFemmes = statsData.candidatures[0]["general"]["nbFemmes"];
-                console.log(`Nombre de femmes : ${nFemmes}`);
                 const nHommes = (statsData.candidatures[0]["general"]["nb"] - nFemmes);
-                console.log(`Nombre d'hommes : ${nHommes}`);
 
                 // Création des graphiques
                 updateComparaisonSexe(nHommes, nFemmes);
@@ -228,17 +213,10 @@ export async function afficherDetailsFormation(ifc) {
             if (statsData.candidatures[0]["general"] && statsData.candidatures[0]["experience"]) {
 
                 const L3 = statsData.candidatures[0]["experience"]["lg3"]['prop'];
-                console.log(`Candidats issus de LG3 : ${L3}`);
                 const LP3 = statsData.candidatures[0]["experience"]["lp3"]['prop'];
-                console.log(`Candidats issus de LP3 : ${LP3}`);
                 const master = statsData.candidatures[0]["experience"]["master"]['prop'];
-                console.log(`Candidats issus de Master : ${master}`);
                 const ninscrit = statsData.candidatures[0]["experience"]["noninscrit"]['prop'];
-                console.log(`Candidats non inscrit : ${ninscrit}`);
                 const autre = statsData.candidatures[0]["experience"]["autre"]['prop'];
-                console.log(`Candidats issus d'une autre formation : ${autre}`);
-
-                console.log("Répartition :", { L3, LP3, master, ninscrit, autre });
 
                 // Création des graphiques
                 updatePropositionDiplomeOrigine(L3, LP3, master, ninscrit, autre);
@@ -253,11 +231,8 @@ export async function afficherDetailsFormation(ifc) {
             if (statsData.candidatures[0]["general"]) {
 
                 const nCan = statsData.candidatures[0]["general"]["nb"];
-                console.log(`Nombre de candidatures : ${nCan}`);
                 const nPropTotal = statsData.candidatures[0]["general"]["prop"];
-                console.log(`Nombre de propositions : ${nPropTotal}`);
                 const nPropAccept = statsData.candidatures[0]["general"]["accept"];
-                console.log(`Nombre d'élèves ayant acceptés une proposition  : ${nPropAccept}`);
 
                 // Création des graphiques
                 updateProcessusSelection(nCan, nPropTotal, nPropAccept);
@@ -273,15 +248,10 @@ export async function afficherDetailsFormation(ifc) {
             if (statsData.candidatures[0]["general"] && statsData.candidatures[0]["origine"]) {
 
                 const L3 = statsData.candidatures[0]["experience"]["lg3"]['accept'];
-                console.log(`Candidats issus de LG3 : ${L3}`);
                 const LP3 = statsData.candidatures[0]["experience"]["lp3"]['accept'];
-                console.log(`Candidats issus de LP3 : ${LP3}`);
                 const master = statsData.candidatures[0]["experience"]["master"]['accept'];
-                console.log(`Candidats issus de Master : ${master}`);
                 const ninscrit = statsData.candidatures[0]["experience"]["noninscrit"]['accept'];
-                console.log(`Candidats non inscrit : ${ninscrit}`);
                 const autre = statsData.candidatures[0]["experience"]["autre"]['accept'];
-                console.log(`Candidats issus d'une autre formation : ${autre}`);
 
                 // Création des graphiques
                 updateRepartitionDiplomeOrigine(L3, LP3, master, ninscrit, autre);
@@ -343,7 +313,6 @@ function initFilters() {
         tag.addEventListener('click', (e) => {
             e.preventDefault();
             let tagLabel = tag.textContent.trim().toLowerCase();
-            console.log(`🔍 Filtre cliqué : "${tagLabel}"`);
             chargerFormationAleatoireParTag(tagLabel);
         });
     });
@@ -384,12 +353,10 @@ async function updateFormationsSimilaires(currentTag, currentIfc) {
         for (const result of results) {
             if (!result.api) continue;
 
-            console.log("Formation Similaire :", result.api)
 
             const idSecDiscipline = result.api.secDiscId;
             const mention = await getMention(idSecDiscipline);
             const etablissement = result.api.lieux;
-            console.log('idSecDiscipline : ', idSecDiscipline, 'Mention :', mention, 'Etablissement:', etablissement)
 
             const article = document.createElement('article');
             article.className = 'formation';
@@ -407,7 +374,6 @@ async function updateFormationsSimilaires(currentTag, currentIfc) {
             const btn = article.querySelector('.btn-details');
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                console.log(`Navigation vers la formation similaire : ${result.local.ifc}`);
                 // On remonte en haut de page
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 // On charge la nouvelle fiche
@@ -439,8 +405,6 @@ async function getAleaIfc() {
 
             const randomIndex = Math.floor(Math.random() * dataList.length);
             const randomElement = dataList[randomIndex];
-
-            console.log(`Formation sélectionnée aléatoirement : ${randomElement.ifc}`);
 
             await afficherDetailsFormation(randomElement.ifc);
 
