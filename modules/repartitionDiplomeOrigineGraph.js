@@ -27,54 +27,56 @@ function settingsRepartitionDiplomeOrigine(
   ];
   const rawData = [L3, LP3, Master, Ninscrit, Autre];
 
-    const processedData = rawCategories
-        .map((category, index) => ({
-            name: category,
-            value: rawData[index]
-        }))
-        .filter(item => item.value > 0);
+  const processedData = rawCategories
+    .map((category, index) => ({
+      name: category,
+      value: rawData[index],
+      itemStyle: {
+        color: ["#6200FF", "#7C2BFF", "#B080FF", "#CBABFF", "#E4D4FF"][index],
+      },
+    }))
+    .filter((item) => item.value > 0);
 
-    const filteredCategories = processedData.map(item => item.name);
-    const filteredValues = processedData.map(item => item.value);
-
-    return {
-        title: {
-            text: show_name ? 'Origine des candidats acceptés' :  'Origine des candidats\nacceptés'
+  return {
+    title: {
+      text: show_name
+        ? "Origine des candidats acceptés"
+        : "Origine des candidats\nacceptés",
+    },
+    xAxis: {
+      max: "dataMax",
+    },
+    yAxis: {
+      type: "category",
+      data: processedData.map(item => item.name),
+      inverse: true,
+      animationDuration: 300,
+      animationDurationUpdate: 300,
+    },
+    tooltip: {
+      trigger: "item",
+      formatter: "{c} candidats",
+    },
+    series: [
+      {
+        realtimeSort: true,
+        type: "bar",
+        data: processedData,
+        label: {
+          show: false,
+          position: "right",
+          valueAnimation: true,
         },
-        xAxis: {
-            max: 'dataMax'
-        },
-        yAxis: {
-            type: 'category',
-            data: filteredCategories,
-            inverse: true,
-            animationDuration: 300,
-            animationDurationUpdate: 300,
-        },
-        tooltip: {
-            trigger: 'item',
-            formatter: '{c} candidats'
-        },
-        series: [
-            {
-                realtimeSort: true,
-                type: 'bar',
-                data: filteredValues,
-                label: {
-                    show: false,
-                    position: 'right',
-                    valueAnimation: true
-                }
-            }
-        ],
-        legend: {
-            show: true
-        },
-        animationDuration: 0,
-        animationDurationUpdate: 3000,
-        animationEasing: 'linear',
-        animationEasingUpdate: 'linear'
-    };
+      },
+    ],
+    legend: {
+      show: true,
+    },
+    animationDuration: 0,
+    animationDurationUpdate: 3000,
+    animationEasing: "linear",
+    animationEasingUpdate: "linear",
+  };
 }
 
 // --- Gestionnaire de redimensionnement ---
