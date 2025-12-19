@@ -1,4 +1,4 @@
-import { getFormationByIfc, getMention, loadAndParseCSV, getAllDataJson, searchStats } from './RESTManagement.js';
+import { getFormationByIfc, getMention, loadAndParseCSV, getAllDataJson, searchStats, getFullDataJson } from './RESTManagement.js';
 import { updateTauxGraph, updateTauxGraphModal } from './tauxSelectiviteGraph.js';
 import { updateComparaisonSexe, updateComparaisonSexeModal } from './comparaisonSexe.js';
 import { updateCadreGraph, updateCadreGraphModal } from './proportionCadreGraph.js';
@@ -12,7 +12,6 @@ import { updateMap } from './mapManagement.js';
 
 export async function afficherDetailsFormation(ifc) {
     try {
-
 
         // =================================================================
         // GESTION INFORMATIONS PRINCIPALES
@@ -142,7 +141,7 @@ export async function afficherDetailsFormation(ifc) {
         // =================================================================
 
         const uai = data_formation.etabUai;
-        console.log(`Recherche Stats Insertion pour UAI: ${uai}, ifc : ${ifc} et mention : ${idSecDiscipline}`);
+        console.log(`Recherche Stats Candidatures pour UAI: ${uai} et ifc : ${ifc}`);
 
         if (uai && ifc) {
             const filters = {
@@ -156,7 +155,7 @@ export async function afficherDetailsFormation(ifc) {
             };
 
             const statsData = await searchStats(filters, harvest);
-            console.log("Stats Insertion reçues :", statsData);
+            console.log("Stats Candidatures reçues :", statsData);
 
             // --- A. Gestion du taux de sélectivité ---
 
@@ -234,7 +233,7 @@ export async function afficherDetailsFormation(ifc) {
 
                 const mAcademie = statsData.candidatures[0]["origine"]["academie"]['nb'];
                 console.log(`Nombre d'élèves issus de la même académie : ${mAcademie}`);
-                const autreAcademie =statsData.candidatures[0]["general"]["nb"] - mAcademie;
+                const autreAcademie = statsData.candidatures[0]["general"]["nb"] - mAcademie;
                 console.log(`Nombre d'élèves issus d'une autre académie : ${autreAcademie}`);
 
                 // Création des graphiques
@@ -243,7 +242,7 @@ export async function afficherDetailsFormation(ifc) {
             } else {
                 console.warn("Aucune statistique pour candidatures[général] ou candidatures[origine]");
                 updateRepartitionOrigineAcademique(0, 0);
-                updateRepartitionOrigineAcademiqueModal(0,0);
+                updateRepartitionOrigineAcademiqueModal(0, 0);
             }
 
             // --- E. Processus de sélection ---
@@ -286,7 +285,7 @@ export async function afficherDetailsFormation(ifc) {
             } else {
                 console.warn("Aucune statistique pour candidatures[général] ou candidatures[origine]");
                 updateRepartitionDiplomeOrigine(0, 0);
-                updateRepartitionDiplomeOrigineModal(0,0);
+                updateRepartitionDiplomeOrigineModal(0, 0);
             }
         } else {
             console.warn("Données manquantes (UAI ou IFC) pour la recherche stats.");
@@ -296,10 +295,12 @@ export async function afficherDetailsFormation(ifc) {
         // GESTION REQUETE SEARCH [insertionPro]
         // =================================================================
 
-         if (uai && idSecDiscipline) {
+        console.log(`Recherche Stats Insertion pour UAI: ${uai}, mention ${mention} et discipline : ${idSecDiscipline}`);
+        if (uai && idSecDiscipline && mention) {
             const filters = {
                 etablissementIds: [uai],
-                secteurDisciplinairesIds: [idSecDiscipline]
+                secteurDisciplinairesIds: [idSecDiscipline],
+                mentionIds: [mention]
             };
 
             const harvest = {
@@ -308,14 +309,81 @@ export async function afficherDetailsFormation(ifc) {
             }
 
             const statsData = await searchStats(filters, harvest);
+            console.log("Stats Insertion reçues :", statsData);
 
-         } else {
-            console.warn("Données manquantes (UAI ou idSecDiscipline) pour la recherche stats.");
+            // --- G. Taux de cadres ---
+
+            if (statsData.candidatures[0]["general"]) {
+
+                const nbCadres = latestStat.emplois.cadre || 0;
+
+
+                // Création des graphiques
+                updateCadreGraph(resultatFormule);
+                updateCadreGraphModal(resultatFormule);
+
+            } else {
+                console.warn(`Pas de données dans le CSV pour : ${key}`);
+                updateCadreGraph(0);
+                updateCadreGraphModal(0);
+            }
+
+        } else {
+            console.warn("Données manquantes (Discipline ou IFC) pour la recherche stats.");
         }
 
     } catch (error) {
         console.error("Erreur dans l'orchestrateur :", error);
-    } 
+    }
+}
+
+/**
+ * Charge une formation aléatoire correspondant au tag
+ * @param {string} tagCible - Le tag normalisé (ex: "informatique")
+ */
+
+async function chargerFormationAleatoireParTag(tagCible) {
+    try {
+        const allFormations = await getFullDataJson();
+
+        const titreMaster = document.getElementById('nomParcours');
+        const currentIfc = titreMaster ? titreMaster.dataset.ifc : null;
+        const candidats = allFormations.filter(item => {
+            const itemTag = item.tag.toLowerCase();
+            return itemTag === tagCible;
+        });
+        if (candidats.length === 0) {
+            alert("Aucune formation trouvée pour cette catégorie.");
+            return;
+        }
+        let choixPossibles = candidats.filter(f => f.ifc !== currentIfc);
+        if (choixPossibles.length === 0) {
+            choixPossibles = candidats;
+        }
+
+        const randomIndex = Math.floor(Math.random() * choixPossibles.length);
+        const formationElue = choixPossibles[randomIndex];
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        await afficherDetailsFormation(formationElue.ifc);
+    } catch {
+        console.error("Erreur lors du filtre par tag :", error);
+    }
+}
+
+
+// ==== Gestion des Filtres (Tags) ====
+function initFilters() {
+    const tags = document.querySelectorAll('.filter__tag');
+
+    tags.forEach((tag) => {
+        tag.addEventListener('click', (e) => {
+            e.preventDefault();
+            let tagLabel = tag.textContent.trim().toLowerCase();
+            console.log(`🔍 Filtre cliqué : "${tagLabel}"`);
+            chargerFormationAleatoireParTag(tagLabel);
+        });
+    });
 }
 
 /**
@@ -350,19 +418,22 @@ async function updateFormationsSimilaires(currentTag, currentIfc) {
 
         const results = await Promise.all(promises);
 
-        results.forEach(result => {
-            if (!result.api) return; // Si l'API a échoué pour l'un d'eux
+        for (const result of results) {
+            if (!result.api) continue;
 
-            const titre = result.api.disci_master || "Master Inconnu";
-            const etablissement = result.api.eta_nom || "Établissement";
-            const ville = parseVille(result.api.lieux);
+            console.log("Formation Similaire :", result.api)
+
+            const idSecDiscipline = result.api.secDiscId;
+            const mention = await getMention(idSecDiscipline);
+            const etablissement = result.api.lieux;
+            console.log('idSecDiscipline : ', idSecDiscipline, 'Mention :', mention, 'Etablissement:', etablissement)
 
             const article = document.createElement('article');
             article.className = 'formation';
             article.innerHTML = `
                 <div class="formation__informations">
-                   <h3 class="formation__title">Master - ${titre}</h3>
-                   <p class="formation__location">${etablissement} <span>·</span> ${ville}</p>
+                   <h3 class="formation__title">Master - ${mention}</h3>
+                   <p class="formation__location">${etablissement}</p>
                 </div>
                 <div class="formation__actions">
                     <a href="#" class="formation__link btn-details">Voir la fiche</a>
@@ -381,81 +452,12 @@ async function updateFormationsSimilaires(currentTag, currentIfc) {
             });
 
             container.appendChild(article);
-        });
+        };
 
     } catch (error) {
         console.error("Erreur chargement similaires :", error);
         container.innerHTML = '<p>Impossible de charger les suggestions.</p>';
     }
-}
-
-// ==== Parser la ville (Tags) ====
-
-function parseVille(lieuBrut) {
-    if (lieuBrut.includes("-")) {
-        const parts = lieuBrut.split("-");
-        return parts[parts.length - 1].trim();
-    } else {
-        return lieuBrut;
-    };
-}
-
-// ==== Gestion des Filtres (Tags) ====
-function initFilters() {
-    const tags = document.querySelectorAll('.filter__tag-link');
-
-    tags.forEach((tag) => {
-        tag.addEventListener('click', (e) => {
-            e.preventDefault();
-            const categorieSelectionnee = tag.textContent.trim().toLowerCase();
-            console.log(`Filtre activé : ${categorieSelectionnee}`);
-            const ifcActuel = getIFC();
-            chargerFormationParTag(categorieSelectionnee, ifcActuel)
-        });
-    });
-}
-
-/**
- * Charge une nouvelle formation aléatoire basée sur le même Tag,
- * mais différente de la formation actuelle.
- */
-async function chargerFormationParTag(tagCible, ifcActuel) {
-    try {
-        const response = await fetch('../src/data.json');
-        const dataList = await response.json();
-
-        console.table("Contenu JSON", dataList)
-
-        // 1. Filtrer : Même tag ET IFC différent de l'actuel
-        const candidats = dataList.filter(item =>
-            item.tag === tagCible && item.ifc !== ifcActuel
-        );
-
-        console.log(candidats)
-
-        if (candidats.length > 0) {
-            // 2. Tirage aléatoire
-            const randomIndex = Math.floor(Math.random() * candidats.length);
-            const nextFormation = candidats[randomIndex];
-
-            console.log(`Changement de formation (Tag: ${tagCible}) -> ${nextFormation.ifc}`);
-
-            // 3. Rechargement de la page/vue avec le nouvel IFC
-            await afficherDetailsFormation(nextFormation.ifc);
-        } else {
-            alert("Il n'y a pas d'autre formation disponible pour cette catégorie.");
-        }
-
-    } catch (error) {
-        console.error("Erreur lors du chargement par tag :", error);
-    }
-}
-
-// Récupérer l'ifc du Master affiché
-function getIFC() {
-    const titreMaster = document.getElementById('nomParcours');
-    const ifcActuel = titreMaster.dataset.ifc;
-    return ifcActuel;
 }
 
 // Récupérer un ifc aléatoire
@@ -489,7 +491,7 @@ async function getAleaIfc() {
 }
 
 async function main() {
-    getAleaIfc();
+    await getAleaIfc();
     initFilters()
 }
 

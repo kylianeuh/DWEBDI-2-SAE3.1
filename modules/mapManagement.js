@@ -7,6 +7,12 @@
  */
 
 export function updateMap(latitude, longitude, nom, site) {
+
+    const mapContainer = document.getElementById('map');
+    if (mapContainer) {
+        mapContainer.innerHTML = '';
+    }
+    
     const points = [
         { lon: longitude, lat: latitude, name: nom, url: site }
     ];

@@ -204,3 +204,25 @@ export async function searchStats(filters, harvest) {
         return null;
     }
 }
+
+/**
+ * Récupère la liste complète des données du fichier data.json
+ * (Utilise le cache pour ne pas recharger le fichier à chaque clic)
+ */
+export async function getFullDataJson() {
+    let dataList = loadStaticData(); // On tente de charger depuis le cache
+
+    if (!dataList) {
+        console.log("Chargement initial de data.json...");
+        try {
+            const response = await fetch('../src/data.json');
+            if (!response.ok) throw new Error("Erreur chargement data.json");
+            dataList = await response.json();
+            saveStaticData(dataList); // On sauvegarde en cache
+        } catch (error) {
+            console.error("Erreur dans getFullDataJson :", error);
+            return [];
+        }
+    }
+    return dataList;
+}
