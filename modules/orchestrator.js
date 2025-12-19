@@ -1,12 +1,9 @@
 import { getFormationByIfc, getMention, loadAndParseCSV, getAllDataJson, searchStats, getFullDataJson } from './RESTManagement.js';
 import { updateTauxGraph, updateTauxGraphModal } from './tauxSelectiviteGraph.js';
 import { updateComparaisonSexe, updateComparaisonSexeModal } from './comparaisonSexe.js';
-import { updateCadreGraph, updateCadreGraphModal } from './proportionCadreGraph.js';
 import { updateProcessusSelection, updateProcessusSelectionModal } from './processusSelection.js';
-import { updateRepartitionOrigineAcademique, updateRepartitionOrigineAcademiqueModal } from './repartitionOrigineAcademique.js';
-import { updatePropositionDiplomeOrigine, updatePropositionDiplomeOrigineModal } from './propositionDiplomeOrigineGraph.js';
+import { updatePropositionDiplomeOrigine } from './propositionDiplomeOrigineGraph.js';
 import { updateRepartitionDiplomeOrigine, updateRepartitionDiplomeOrigineModal } from './repartitionDiplomeOrigineGraph.js';
-import { updateSalaire, updateSalaireModal } from './comparaisonSalaireGraph.js';
 import { updateMap } from './mapManagement.js';
 
 
@@ -180,7 +177,7 @@ export async function afficherDetailsFormation(ifc) {
                 updateTauxGraphModal(tauxCalcule);
             } else {
                 console.warn("Aucune statistique pour candidatures[général]");
-                updateTauxGraph(0, 0);
+                updateTauxGraph(0);
                 updateTauxGraphModal(0);
             }
 
@@ -195,11 +192,9 @@ export async function afficherDetailsFormation(ifc) {
 
                 // Création des graphiques
                 updateComparaisonSexe(nHommes, nFemmes);
-                updateComparaisonSexeModal(nHommes, nFemmes);
             } else {
                 console.warn("Aucune statistique pour candidatures[général]");
                 updateComparaisonSexe(0, 0);
-                updateComparaisonSexeModal(0, 0);
             }
 
             // --- C. Répartition des diplomes en propositions ---
@@ -221,29 +216,9 @@ export async function afficherDetailsFormation(ifc) {
 
                 // Création des graphiques
                 updatePropositionDiplomeOrigine(L3, LP3, master, ninscrit, autre);
-                updatePropositionDiplomeOrigineModal(L3, LP3, master, ninscrit, autre);
             } else {
                 console.warn("Aucune statistique pour candidatures[général] ou candidatures[experience]");
                 updatePropositionDiplomeOrigine(0, 0, 0, 0, 0);
-                updatePropositionDiplomeOrigineModal(0, 0, 0, 0, 0);
-            }
-
-            // --- D. Répartition origine académique en propositions ---
-
-            if (statsData.candidatures[0]["general"] && statsData.candidatures[0]["origine"]) {
-
-                const mAcademie = statsData.candidatures[0]["origine"]["academie"]['nb'];
-                console.log(`Nombre d'élèves issus de la même académie : ${mAcademie}`);
-                const autreAcademie = statsData.candidatures[0]["general"]["nb"] - mAcademie;
-                console.log(`Nombre d'élèves issus d'une autre académie : ${autreAcademie}`);
-
-                // Création des graphiques
-                updateRepartitionOrigineAcademique(mAcademie, autreAcademie);
-                updateRepartitionOrigineAcademiqueModal(mAcademie, autreAcademie);
-            } else {
-                console.warn("Aucune statistique pour candidatures[général] ou candidatures[origine]");
-                updateRepartitionOrigineAcademique(0, 0);
-                updateRepartitionOrigineAcademiqueModal(0, 0);
             }
 
             // --- E. Processus de sélection ---
@@ -282,55 +257,12 @@ export async function afficherDetailsFormation(ifc) {
 
                 // Création des graphiques
                 updateRepartitionDiplomeOrigine(L3, LP3, master, ninscrit, autre);
-                updateRepartitionDiplomeOrigineModal(L3, LP3, master, ninscrit, autre);
             } else {
                 console.warn("Aucune statistique pour candidatures[général] ou candidatures[origine]");
                 updateRepartitionDiplomeOrigine(0, 0);
-                updateRepartitionDiplomeOrigineModal(0, 0);
             }
         } else {
             console.warn("Données manquantes (UAI ou IFC) pour la recherche stats.");
-        }
-
-        // =================================================================
-        // GESTION REQUETE SEARCH [insertionPro]
-        // =================================================================
-
-        console.log(`Recherche Stats Insertion pour UAI: ${uai}, mention ${mention} et discipline : ${idSecDiscipline}`);
-        if (uai && idSecDiscipline && mention) {
-            const filters = {
-                etablissementIds: [uai],
-                secteurDisciplinairesIds: [idSecDiscipline],
-                mentionIds: [mention]
-            };
-
-            const harvest = {
-                typeStats: "insertionsPro",
-                insertionProDetails: ["emplois", "salaire", "general"]
-            }
-
-            const statsData = await searchStats(filters, harvest);
-            console.log("Stats Insertion reçues :", statsData);
-
-            // --- G. Taux de cadres ---
-
-            if (statsData.candidatures[0]["general"]) {
-
-                const nbCadres = latestStat.emplois.cadre || 0;
-
-
-                // Création des graphiques
-                updateCadreGraph(resultatFormule);
-                updateCadreGraphModal(resultatFormule);
-
-            } else {
-                console.warn(`Pas de données dans le CSV pour : ${key}`);
-                updateCadreGraph(0);
-                updateCadreGraphModal(0);
-            }
-
-        } else {
-            console.warn("Données manquantes (Discipline ou IFC) pour la recherche stats.");
         }
 
     } catch (error) {
@@ -495,33 +427,33 @@ async function getAleaIfc() {
 // Visibilité du tag actif
 
 function setActiveTag(tagValue) {
-  const tags = document.querySelectorAll(".filter__tag");
+    const tags = document.querySelectorAll(".filter__tag");
 
-  tags.forEach((tag) => {
-    tag.classList.remove("active");
+    tags.forEach((tag) => {
+        tag.classList.remove("active");
 
-    const link = tag.querySelector(".filter__tag-link");
-    if (!link) return;
+        const link = tag.querySelector(".filter__tag-link");
+        if (!link) return;
 
-    if (link.textContent.trim().toLowerCase() === tagValue.toLowerCase()) {
-      tag.classList.add("active");
-    }
-  });
-  updateFilterLabel(tagValue);
+        if (link.textContent.trim().toLowerCase() === tagValue.toLowerCase()) {
+            tag.classList.add("active");
+        }
+    });
+    updateFilterLabel(tagValue);
 }
 
 //Mise à jour des filtre
 function updateFilterLabel(tagValue) {
-  const filterDiv = document.querySelector(".filter__div");
-  if (!filterDiv) return;
+    const filterDiv = document.querySelector(".filter__div");
+    if (!filterDiv) return;
 
-  const title = filterDiv.querySelector("h3");
-  if (!title) return;
+    const title = filterDiv.querySelector("h3");
+    if (!title) return;
 
-  // Majuscule à la première lettre
-  const formattedTag = tagValue.charAt(0).toUpperCase() + tagValue.slice(1);
+    // Majuscule à la première lettre
+    const formattedTag = tagValue.charAt(0).toUpperCase() + tagValue.slice(1);
 
-  title.textContent = formattedTag;
+    title.textContent = formattedTag;
 }
 
 async function main() {

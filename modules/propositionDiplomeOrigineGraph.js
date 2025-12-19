@@ -116,6 +116,6 @@ export function updatePropositionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre
 /**
  * Crée le graph dans la modale
  */
-export function updatePropositionDiplomeOrigineModal(L3, LP3, Master, Ninscrit, Autre) {
-    return create(".viz #propositionDiplomeOrigine-modal", L3, LP3, Master, Ninscrit, Autre);
-}
+// export function updatePropositionDiplomeOrigineModal(L3, LP3, Master, Ninscrit, Autre) {
+//     return create(".viz #propositionDiplomeOrigine-modal", L3, LP3, Master, Ninscrit, Autre);
+// }
