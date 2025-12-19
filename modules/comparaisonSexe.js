@@ -8,17 +8,32 @@ const charts = [];
  */
 
 function settingsComparaisonSexe(Homme, Femme, showName = false) {
+
+  const isMobile = window.innerWidth < 540;
+
+  if (isMobile && !showName) {
+    return {
+      title: {
+        text: "Genre des\ncandidats",
+        left: "center",
+        top: "middle",
+      }
+    };
+  }
+
   return {
     color: ["#7C2BFF", "#CBABFF"],
     title: {
       text: "Genre des candidats",
+      left: showName ? "center" : "left",
+      top: showName ? "5%" : "top"
     },
     tooltip: {
       trigger: "item",
     },
-    legend: showName 
+    legend: showName
       ? { bottom: "5%", left: "center" }
-      : { show: false }, // cahcher la couleurs
+      : { show: false },
     series: [
       {
         name: "Access From",
@@ -54,20 +69,25 @@ function settingsComparaisonSexe(Homme, Femme, showName = false) {
   };
 }
 
-// --- Gestionnaire de redimensionnement ---
+  // --- Gestionnaire de redimensionnement ---
+  window.addEventListener("resize", function () {
+    charts.forEach((chart) => {
+      try {
+        if (document.body.contains(chart.getDom())) {
+          chart.resize();
 
-window.addEventListener("resize", function () {
-  charts.forEach((chart) => {
-    try {
-      // Vérifie si le conteneur est toujours dans le DOM avant de resize
-      if (document.body.contains(chart.getDom())) {
-        chart.resize();
+          // RECUPERATION DES DONNÉES SAUVEGARDÉES
+          if (chart._dataStore) {
+            const { Homme, Femme, showName } = chart._dataStore;
+            // On force la mise à jour complète avec 'true' pour nettoyer l'ancien affichage
+            chart.setOption(settingsComparaisonSexe(Homme, Femme, showName), true);
+          }
+        }
+      } catch (e) {
+        console.warn("Erreur resize", e);
       }
-    } catch (e) {
-      console.warn("Erreur lors du redimensionnement du graphique", e);
-    }
+    });
   });
-});
 
 /**
  * Fonction générique pour initialiser un graphique sur un sélecteur donné
@@ -90,6 +110,7 @@ function create(selector, Homme, Femme, showName = false) {
   }
 
   myChart = echarts.init(dom);
+  myChart._dataStore = { Homme, Femme, showName };
   myChart.setOption(settingsComparaisonSexe(Homme, Femme, showName));
 
   // Ajoute le graphique au tableau de suivi pour le resize global

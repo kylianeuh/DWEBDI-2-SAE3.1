@@ -18,55 +18,69 @@ function settingsPropositionDiplomeOrigine(
   Autre,
   showName = false
 ) {
-  return {
-    color: ["#6200FF", "#7C2BFF", "#B080FF", "#CBABFF", "#E4D4FF"],
-    title: {
-      text: showName ? 'Candidats ayant reçus une proposition' :  "Candidats ayant\nreçus une proposition"
-    },
-    tooltip: {
-      trigger: "item",
-    },
-    legend: {
-      bottom: "5%",
-      left: "center",
-    },
-    series: [
-      {
-        name: "Access From",
-        type: "pie",
-        top: showName ? ' ' : '20%',
-        radius: ["40%", "70%"],
-        avoidLabelOverlap: false,
-        itemStyle: {
-          borderRadius: 10,
-          borderColor: "#fff",
-          borderWidth: 2,
-        },
-        label: {
-          show: false,
-          position: "center",
-        },
-        emphasis: {
-          label: {
-            show: true,
-            fontSize: 40,
-            fontWeight: "bold",
-          },
-        },
-        labelLine: {
-          show: false,
-        },
-        data: [
-          { value: L3, name: showName ? "Licence 3" : "" },
-          { value: LP3, name: showName ? "Licence pro 3" : "" },
-          { value: Master, name: showName ? "Master" : "" },
-          { value: Ninscrit, name: showName ? "Non inscrits" : "" },
-          { value: Autre, name: showName ? "Autre" : "" },
-        ],
+
+  const isMobile = window.innerWidth < 540;
+
+  if (isMobile && !showName) {
+    return {
+      title: {
+        text: "Candidats\nayant reçus\nune proposition",
+        left: "center",
+        top: "middle",
+      }
+    };
+  }
+
+    return {
+      color: ["#6200FF", "#7C2BFF", "#B080FF", "#CBABFF", "#E4D4FF"],
+      title: {
+        text: showName ? 'Candidats ayant reçus une proposition' : "Candidats ayant\nreçus une proposition"
       },
-    ],
-  };
-}
+      tooltip: {
+        trigger: "item",
+      },
+      legend: {
+        bottom: "5%",
+        left: "center",
+      },
+      series: [
+        {
+          name: "Access From",
+          type: "pie",
+          top: showName ? ' ' : '20%',
+          radius: ["40%", "70%"],
+          avoidLabelOverlap: false,
+          itemStyle: {
+            borderRadius: 10,
+            borderColor: "#fff",
+            borderWidth: 2,
+          },
+          label: {
+            show: false,
+            position: "center",
+          },
+          emphasis: {
+            label: {
+              show: true,
+              fontSize: 40,
+              fontWeight: "bold",
+            },
+          },
+          labelLine: {
+            show: false,
+          },
+          data: [
+            { value: L3, name: showName ? "Licence 3" : "" },
+            { value: LP3, name: showName ? "Licence pro 3" : "" },
+            { value: Master, name: showName ? "Master" : "" },
+            { value: Ninscrit, name: showName ? "Non inscrits" : "" },
+            { value: Autre, name: showName ? "Autre" : "" },
+          ],
+        },
+      ],
+    };
+  }
+
 
 // --- Gestionnaire de redimensionnement ---
 
