@@ -131,6 +131,7 @@ export async function afficherDetailsFormation(ifc) {
 
         if (localData && localData.tag) {
             await updateFormationsSimilaires(localData.tag, ifc);
+            setActiveTag(localData.tag);
         } else {
             console.warn("Ps de tag trouvé pour charger les formations similaires.")
             document.querySelector('.right-item__formation-container').innerHTML = "<p>Aucune suggestion disponible.</p>";
@@ -488,6 +489,39 @@ async function getAleaIfc() {
     } catch (error) {
         console.error("Erreur lors du chargement initial (Aléatoire) :", error);
     }
+}
+
+
+// Visibilité du tag actif
+
+function setActiveTag(tagValue) {
+  const tags = document.querySelectorAll(".filter__tag");
+
+  tags.forEach((tag) => {
+    tag.classList.remove("active");
+
+    const link = tag.querySelector(".filter__tag-link");
+    if (!link) return;
+
+    if (link.textContent.trim().toLowerCase() === tagValue.toLowerCase()) {
+      tag.classList.add("active");
+    }
+  });
+  updateFilterLabel(tagValue);
+}
+
+//Mise à jour des filtre
+function updateFilterLabel(tagValue) {
+  const filterDiv = document.querySelector(".filter__div");
+  if (!filterDiv) return;
+
+  const title = filterDiv.querySelector("h3");
+  if (!title) return;
+
+  // Majuscule à la première lettre
+  const formattedTag = tagValue.charAt(0).toUpperCase() + tagValue.slice(1);
+
+  title.textContent = formattedTag;
 }
 
 async function main() {

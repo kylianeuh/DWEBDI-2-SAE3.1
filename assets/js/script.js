@@ -2,7 +2,9 @@ document.addEventListener("DOMContentLoaded", initialize);
 
 function initialize() {
    openMenu();
-   openModal();
+   //openModal();
+   selectedViz();
+   openTags();
 }
 
 // ==== Menu Toggle ====
@@ -39,7 +41,7 @@ function openMenu() {
 }
 
 // == Ouvrir modal
-function openModal() {
+/*function openModal() {
    const modalContainer = document.querySelector('.modal__container');
    const clickableGraphs = document.querySelectorAll('.gallery.viz div');
    const modalGraphs = document.querySelectorAll('.modal.viz > div[id$="-modal"]');
@@ -74,5 +76,45 @@ function closeModal() {
       modal.style.display = 'none';
       console.log('click');
    })
+}*/
+
+// ==== viz selectionner ====
+function selectedViz() {
+   const galleryContainer = document.querySelector('.section__gallery');
+   const vizs = document.querySelectorAll('.gallery');
+
+   galleryContainer.addEventListener('click', (e) => {
+       const clickedViz = e.target.closest('.gallery');
+       if (!clickedViz) return;
+
+       vizs.forEach(viz => viz.classList.remove('active'));
+       clickedViz.classList.add('active');
+
+       // recalcule de la place disponible
+       requestAnimationFrame(() => {
+           window.dispatchEvent(new Event('resize')); // ECharts écoute automatiquement
+       });
+   });
 }
 
+// ==== ouvrir choix tag telephone ====
+// ========== Filter tags style "select" ==========
+function openTags() {
+   const filterDivs = document.querySelectorAll('.filter__div');
+
+   filterDivs.forEach(filterDiv => {
+       const title = filterDiv.querySelector('h3');
+
+       // Ouvrir / fermer la liste au clic sur le titre
+       title.addEventListener('click', () => {
+           filterDiv.classList.toggle('active');
+       });
+
+       // Optionnel : fermer la liste si clic en dehors
+       document.addEventListener('click', (e) => {
+           if (!filterDiv.contains(e.target)) {
+               filterDiv.classList.remove('active');
+           }
+       });
+   });
+}

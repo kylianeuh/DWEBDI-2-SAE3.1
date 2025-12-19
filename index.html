@@ -50,9 +50,8 @@
    </header>
 
    <main class="main">
-      <!-- ===== Filtre Tags ===== -->
+      <!-- ===== Filtre Tags Mobile ===== -->
       <nav class="filter">
-
          <!-- ===== Tags ===== -->
          <ul class="filter__list">
             <li class="filter__tag">
@@ -87,6 +86,47 @@
                <a href="#" class="filter__tag-link">Santé</a>
             </li>
          </ul>
+      </nav>
+
+      <!-- ===== Filtre Tags Desktop ===== -->
+      <nav class="filter">
+         <div class="filter__div">
+            <h3 class="filter__title"></h3>
+            <!-- ===== Tags ===== -->
+            <ul class="filter__list">
+               <li class="filter__tag">
+                  <a href="#" class="filter__tag-link">Informatique</a>
+               </li>
+
+               <li class="filter__tag">
+                  <a href="#" class="filter__tag-link">Finance & Comptabilité</a>
+               </li>
+
+               <li class="filter__tag">
+                  <a href="#" class="filter__tag-link">Management</a>
+               </li>
+
+               <li class="filter__tag">
+                  <a href="#" class="filter__tag-link">Ressources Humaines</a>
+               </li>
+
+               <li class="filter__tag">
+                  <a href="#" class="filter__tag-link">Immobilier</a>
+               </li>
+
+               <li class="filter__tag">
+                  <a href="#" class="filter__tag-link">Art & Culture</a>
+               </li>
+
+               <li class="filter__tag">
+                  <a href="#" class="filter__tag-link">Communication</a>
+               </li>
+
+               <li class="filter__tag">
+                  <a href="#" class="filter__tag-link">Santé</a>
+               </li>
+            </ul>
+         </div>
       </nav>
 
       <div class="container">
@@ -133,10 +173,6 @@
                         <a href="#" class="formation__link">
                            Voir la fiche
                         </a>
-
-                        <a href="#" class="formation__link">
-                           Comparer
-                        </a>
                      </article>
 
                      <article class="formation">
@@ -148,10 +184,6 @@
                         <a href="#" class="formation__link">
                            Voir la fiche
                         </a>
-
-                        <a href="#" class="formation__link">
-                           Comparer
-                        </a>
                      </article>
 
                      <article class="formation">
@@ -162,10 +194,6 @@
 
                         <a href="#" class="formation__link">
                            Voir la fiche
-                        </a>
-
-                        <a href="#" class="formation__link">
-                           Comparer
                         </a>
                      </article>
                   </div>
@@ -178,7 +206,7 @@
             <h2 class="section__title">Statistiques utiles</h2>
 
             <div class="section__gallery">
-               <figure class="gallery viz">
+               <figure class="gallery active viz">
                   <div id="tauxSelectivite"></div>
                </figure>
 
@@ -191,10 +219,6 @@
                </figure>
 
                <figure class="gallery viz">
-                  <div id="repartitionOrigineAcademique"></div>
-               </figure>
-               
-               <figure class="gallery viz">
                   <div id="processusSelection"></div>
                </figure>
 
@@ -204,7 +228,7 @@
 
             </div>
 
-            <div class="modal__container">
+            <!-- /<div class="modal__container"> 
                <figure class="modal viz">
                   <button class="modal__btn">
                      <span class="material-symbols-outlined">
@@ -214,7 +238,6 @@
                   <div id="tauxSelectivite-modal"></div>
                   <div id="comparaisonSexe-modal"></div>
                   <div id="tauxCadre-modal"></div>
-                  <div id="repartitionOrigineAcademique-modal"></div>
                   <div id="processusSelection-modal"></div>
                   <div id="propositionDiplomeOrigine-modal"></div>
                   <div id="repartitionDiplomeOrigine-modal"></div>
@@ -222,38 +245,38 @@
                </figure>
             </div>
          </section>
+-->
+            <!-- ===== Troisième section ===== -->
+            <section class="section" id="contact">
+               <h2 class="section__title">Informations complémentaires</h2>
 
-         <!-- ===== Troisième section ===== -->
-         <section class="section" id="contact">
-            <h2 class="section__title">Informations complémentaires</h2>
+               <div class="container__map">
+                  <div id="map" class="section__map"
+                     style="height: 400px; width: 100%; border-radius: 12px; overflow: hidden;"></div>
+                  <div class="section__details">
+                     <p class="section__detail">
+                        <span class="material-symbols-outlined">
+                           map
+                        </span>
+                        <span id="adresseEtab"></span>
+                     </p>
 
-            <div class="container__map">
-               <div id="map" class="section__map"
-                  style="height: 400px; width: 100%; border-radius: 12px; overflow: hidden;"></div>
-               <div class="section__details">
-                  <p class="section__detail">
-                     <span class="material-symbols-outlined">
-                        map
-                     </span>
-                     <span id="adresseEtab"></span>
-                  </p>
+                     <p class="section__detail">
+                        <span class="material-symbols-outlined">
+                           alternate_email
+                        </span>
+                        <span id="mailParcours"></span>
+                     </p>
 
-                  <p class="section__detail">
-                     <span class="material-symbols-outlined">
-                        alternate_email
-                     </span>
-                     <span id="mailParcours"></span>
-                  </p>
-
-                  <p class="section__detail">
-                     <span class="material-symbols-outlined">
-                        language
-                     </span>
-                     <a id="siteEtab" target="_blank"></a>
-                  </p>
+                     <p class="section__detail">
+                        <span class="material-symbols-outlined">
+                           language
+                        </span>
+                        <a id="siteEtab" target="_blank"></a>
+                     </p>
+                  </div>
                </div>
-            </div>
-         </section>
+            </section>
       </div>
    </main>
 
