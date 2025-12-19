@@ -461,9 +461,40 @@ button {
 #processusSelection,
 /* #processusSelection-modal, */
 #repartitionDiplomeOrigine
-
 /* #repartitionDiplomeOrigine-modal */
    {
+   width: 100%;
+   height: 100%;
+}
+
+/* Tous les modals sont cachés par défaut */
+.gallery .modal-viz {
+   display: none;
+   visibility: hidden;
+   width: 100%;
+   height: 100%;
+}
+
+/* Affiche le modal seulement si la figure est active */
+.gallery.active .modal-viz {
+   display: flex;
+   visibility: visible;
+   justify-content: center;
+   align-items: center;
+}
+
+/* Tous les non modals montré par defaut */
+.gallery .non-modal {
+   display: flex;
+   visibility: visible;
+   justify-content: center;
+   align-items: center;
+}
+
+/* Ne pas affiche le non modal seulement si la figure est active */
+.gallery.active .non-modal {
+   display: none;
+   visibility: hidden;
    width: 100%;
    height: 100%;
 }
