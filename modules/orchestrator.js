@@ -23,6 +23,31 @@ export async function afficherDetailsFormation(ifc) {
 
         console.log("Données reçues :", data_formation);
 
+        // Affichage du logo
+
+        const uai = data_formation.etabUai;
+        const baliseLogo = document.getElementById('logoEtablissement');
+
+        if (baliseLogo) {
+            if (uai) {
+                // Construction de l'URL API MonMaster
+                const urlLogo = `https://monmaster.gouv.fr/api/logo/${uai}`;
+                
+                baliseLogo.src = urlLogo;
+                baliseLogo.style.display = 'block'; // On affiche l'image
+                
+                // Gestion d'erreur (si le logo n'existe pas sur l'API)
+                baliseLogo.onerror = function() {
+                    console.warn(`Impossible de charger le logo pour l'UAI : ${uai}`);
+                    // Optionnel : Mettre une image par défaut ou cacher l'élément
+                    // this.src = './assets/img/default-logo.svg'; 
+                    this.style.display = 'none';
+                };
+            } else {
+                baliseLogo.style.display = 'none'; // Pas d'UAI = Pas d'image
+            }
+        }
+
         // Gestion du nom du parcours
         const idSecDiscipline = data_formation?.secDiscId;
 
@@ -138,7 +163,6 @@ export async function afficherDetailsFormation(ifc) {
         // GESTION REQUETE SEARCH [candidatures]
         // =================================================================
 
-        const uai = data_formation.etabUai;
         console.log(`Recherche Stats Candidatures pour UAI: ${uai} et ifc : ${ifc}`);
 
         if (uai && ifc) {
