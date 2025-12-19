@@ -2,7 +2,7 @@ import { getFormationByIfc, getMention, loadAndParseCSV, getAllDataJson, searchS
 import { updateTauxGraph, updateTauxGraphModal } from './tauxSelectiviteGraph.js';
 import { updateComparaisonSexe, updateComparaisonSexeModal } from './comparaisonSexe.js';
 import { updateProcessusSelection, updateProcessusSelectionModal } from './processusSelection.js';
-import { updatePropositionDiplomeOrigine } from './propositionDiplomeOrigineGraph.js';
+import { updatePropositionDiplomeOrigine, updatePropositionDiplomeOrigineModal } from './propositionDiplomeOrigineGraph.js';
 import { updateRepartitionDiplomeOrigine, updateRepartitionDiplomeOrigineModal } from './repartitionDiplomeOrigineGraph.js';
 import { updateMap } from './mapManagement.js';
 
@@ -192,9 +192,11 @@ export async function afficherDetailsFormation(ifc) {
 
                 // Création des graphiques
                 updateComparaisonSexe(nHommes, nFemmes);
+                updateComparaisonSexeModal(nHommes, nFemmes);
             } else {
                 console.warn("Aucune statistique pour candidatures[général]");
                 updateComparaisonSexe(0, 0);
+                updateComparaisonSexeModal(0, 0);
             }
 
             // --- C. Répartition des diplomes en propositions ---
@@ -216,9 +218,11 @@ export async function afficherDetailsFormation(ifc) {
 
                 // Création des graphiques
                 updatePropositionDiplomeOrigine(L3, LP3, master, ninscrit, autre);
+                updatePropositionDiplomeOrigineModal(L3, LP3, master, ninscrit, autre);
             } else {
                 console.warn("Aucune statistique pour candidatures[général] ou candidatures[experience]");
                 updatePropositionDiplomeOrigine(0, 0, 0, 0, 0);
+                updatePropositionDiplomeOrigineModal(0, 0, 0, 0, 0);
             }
 
             // --- E. Processus de sélection ---
@@ -257,9 +261,11 @@ export async function afficherDetailsFormation(ifc) {
 
                 // Création des graphiques
                 updateRepartitionDiplomeOrigine(L3, LP3, master, ninscrit, autre);
+                updateRepartitionDiplomeOrigineModal(L3, LP3, master, ninscrit, autre);
             } else {
                 console.warn("Aucune statistique pour candidatures[général] ou candidatures[origine]");
                 updateRepartitionDiplomeOrigine(0, 0);
+                updateRepartitionDiplomeOrigineModal(0, 0);
             }
         } else {
             console.warn("Données manquantes (UAI ou IFC) pour la recherche stats.");
