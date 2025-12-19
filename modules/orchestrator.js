@@ -1,11 +1,10 @@
-import { getFormationByIfc, getMention, loadAndParseCSV, getAllDataJson, searchStats, getFullDataJson } from './RESTManagement.js';
+import { getFormationByIfc, getMention, getAllDataJson, searchStats, getFullDataJson } from './RESTManagement.js';
 import { updateTauxGraph, updateTauxGraphModal } from './tauxSelectiviteGraph.js';
 import { updateComparaisonSexe, updateComparaisonSexeModal } from './comparaisonSexe.js';
 import { updateProcessusSelection, updateProcessusSelectionModal } from './processusSelection.js';
 import { updatePropositionDiplomeOrigine, updatePropositionDiplomeOrigineModal } from './propositionDiplomeOrigineGraph.js';
 import { updateRepartitionDiplomeOrigine, updateRepartitionDiplomeOrigineModal } from './repartitionDiplomeOrigineGraph.js';
 import { updateMap } from './mapManagement.js';
-
 
 export async function afficherDetailsFormation(ifc) {
     try {
