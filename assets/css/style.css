@@ -612,9 +612,9 @@ button {
       height: 180px;
    }
 
-   .modal {
+   /*.modal {
       padding: 50px 60px;
-   }
+   }*/
 
    /* ==== Troisième section ==== */
    .section__map {
@@ -634,9 +634,9 @@ button {
       height: 200px;
    }
 
-   .modal {
+   /*.modal {
       padding: 50px 60px;
-   }
+   }*/
 }
 
 /* 768px */
@@ -816,11 +816,11 @@ button {
       height: 220px;
    }
 
-   .modal {
+   /*.modal {
       padding: 50px 80px;
       height: 80vh;
       height: 80svh;
-   }
+   }*/
 
    /* ==== Troisième section ==== */
    .container__map {
