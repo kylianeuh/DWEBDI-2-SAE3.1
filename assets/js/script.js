@@ -98,23 +98,31 @@ function selectedViz() {
 }
 
 // ==== ouvrir choix tag telephone ====
-// ========== Filter tags style "select" ==========
 function openTags() {
    const filterDivs = document.querySelectorAll('.filter__div');
-
+ 
    filterDivs.forEach(filterDiv => {
-       const title = filterDiv.querySelector('h3');
-
-       // Ouvrir / fermer la liste au clic sur le titre
-       title.addEventListener('click', () => {
-           filterDiv.classList.toggle('active');
+     const title = filterDiv.querySelector('h3');
+     const tags = filterDiv.querySelectorAll('.filter__tag-link');
+ 
+     // Ouvrir / fermer au clic sur le titre
+     title.addEventListener('click', (e) => {
+       e.stopPropagation(); // empêche le document.click
+       filterDiv.classList.toggle('active');
+     });
+ 
+     // Fermer quand on clique sur un tag
+     tags.forEach(tag => {
+       tag.addEventListener('click', () => {
+         filterDiv.classList.remove('active');
        });
-
-       // Optionnel : fermer la liste si clic en dehors
-       document.addEventListener('click', (e) => {
-           if (!filterDiv.contains(e.target)) {
-               filterDiv.classList.remove('active');
-           }
-       });
+     });
    });
-}
+ 
+   // Fermer si clic en dehors
+   document.addEventListener('click', () => {
+     filterDivs.forEach(filterDiv => {
+       filterDiv.classList.remove('active');
+     });
+   });
+ } 
