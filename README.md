@@ -80,6 +80,7 @@ Ouvrez http://localhost:8000 dans votre navigateur
 
 ## Structure du Projet
 
+```
 /
 ├── index.html                      # Point d'entrée de l'application
 ├── assets/
@@ -102,3 +103,4 @@ Ouvrez http://localhost:8000 dans votre navigateur
 │   └── data.json                   # Données locales (Descriptions, Tags, Contacts)
 ├── documentation/                  # Ressources documentaires
 └── package.json                    # Définition du projet (npm)
+```
