@@ -74,6 +74,8 @@ Dans un terminal, placez-vous à la racine du projet et lancez :
 ```bash
 # Python 3.x
 python -m http.server 8000
+```
+
 Ouvrez http://localhost:8000 dans votre navigateur
 
 ## Structure du Projet
