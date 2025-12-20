@@ -18,7 +18,7 @@ function settingsPropositionDiplomeOrigine(
   Autre,
   showName = false
 ) {
-  const isMobile = window.innerWidth < 540;
+  const isMobile = window.matchMedia("(max-width: 539px)").matches;
 
   if (isMobile && !showName) {
     return {
@@ -33,7 +33,7 @@ function settingsPropositionDiplomeOrigine(
   return {
     color: ["#6200FF", "#7C2BFF", "#B080FF", "#CBABFF", "#E4D4FF"],
     title: {
-      text: !showName
+      text: showName
         ? "Candidats ayant reçus une proposition"
         : "Candidats ayant\nreçus une proposition",
     },
@@ -95,7 +95,7 @@ window.addEventListener("resize", function () {
           const { L3, LP3, Master, Ninscrit, Autre, showName } =
             chart._dataStore;
           chart.setOption(
-            settingsComparaisonSexe(L3, LP3, Master, Ninscrit, Autre, showName),
+            settingsPropositionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre, showName),
             true
           );
         }

@@ -6,8 +6,8 @@ const charts = [];
  * @param {number} taux - Le taux (ex: 25 pour 25%)
  */
 
-function settingsTauxSelectivite(taux, showName = true) {
-  const isMobile = window.innerWidth < 768; // Standardisé à 768px comme les autres
+function settingsTauxSelectivite(taux, showName = false) {
+  const isMobile = window.innerWidth < 540; // Standardisé à 768px comme les autres
 
   // 1. Cas Mobile "Petite Viz" : On affiche juste le titre sur plusieurs lignes
   if (isMobile && !showName) {

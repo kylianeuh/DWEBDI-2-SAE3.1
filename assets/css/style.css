@@ -663,6 +663,9 @@ button {
    .gallery {
       height: 200px;
    }
+   .gallery.active {
+      height: 100%;
+   }
 
    /*.modal {
       padding: 50px 60px;

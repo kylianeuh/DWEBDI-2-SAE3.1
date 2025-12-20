@@ -16,8 +16,19 @@ function settingsRepartitionDiplomeOrigine(
   Master,
   Ninscrit,
   Autre,
-  show_name
+  showName
 ) {
+  const isMobile = window.innerWidth < 540;
+
+  if (isMobile && !showName) {
+    return {
+      title: {
+        text: "Origine\ndes candidats\nacceptés",
+        left: "center",
+        top: "middle",
+      },
+    };
+  }
   const rawCategories = [
     "Licence 3",
     "Licence Pro 3",
@@ -40,7 +51,7 @@ function settingsRepartitionDiplomeOrigine(
   if (processedData.length === 0) {
     return {
       title: {
-        text: show_name
+        text: showName
           ? "Origine des candidats acceptés"
           : "Origine des candidats\nacceptés",
         left: "center",
@@ -63,7 +74,7 @@ function settingsRepartitionDiplomeOrigine(
 
   return {
     title: {
-      text: show_name
+      text: showName
         ? "Origine des candidats acceptés"
         : "Origine des candidats\nacceptés",
     },
@@ -111,6 +122,16 @@ window.addEventListener("resize", function () {
       // Vérifie si le conteneur est toujours dans le DOM avant de resize
       if (document.body.contains(chart.getDom())) {
         chart.resize();
+
+        // RECUPERATION DES DONNÉES SAUVEGARDÉES
+        if (chart._dataStore) {
+          const { L3, LP3, Master, Ninscrit, Autre, showName } =
+            chart._dataStore;
+          chart.setOption(
+            settingsRepartitionDiplomeOrigine(L3, LP3, Master, Ninscrit, Autre, showName),
+            true
+          );
+        }
       }
     } catch (e) {
       console.warn("Erreur lors du redimensionnement du graphique", e);
@@ -128,7 +149,7 @@ window.addEventListener("resize", function () {
  * @param {number} Autre - Nombre d'autre
  */
 
-function create(selector, L3, LP3, Master, Ninscrit, Autre, show_name = true) {
+function create(selector, L3, LP3, Master, Ninscrit, Autre, showName = true) {
   const dom = document.querySelector(selector);
   if (!dom) {
     console.error(`Element introuvable pour le sélecteur : ${selector}`);
@@ -142,6 +163,7 @@ function create(selector, L3, LP3, Master, Ninscrit, Autre, show_name = true) {
   }
 
   myChart = echarts.init(dom);
+  myChart._dataStore = { L3, LP3, Master, Ninscrit, Autre, showName };
   myChart.setOption(
     settingsRepartitionDiplomeOrigine(
       L3,
@@ -149,7 +171,7 @@ function create(selector, L3, LP3, Master, Ninscrit, Autre, show_name = true) {
       Master,
       Ninscrit,
       Autre,
-      show_name
+      showName
     )
   );
 
