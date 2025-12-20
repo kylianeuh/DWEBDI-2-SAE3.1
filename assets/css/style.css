@@ -335,7 +335,7 @@ button {
 
 /* ===== Description de la formation ===== */
 .left-item__description {
-   text-align: justify;
+   text-align: left;
 }
 
 /* ===== Partie droite - Formations similaires ===== */
